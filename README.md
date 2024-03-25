@@ -17,9 +17,10 @@
 
 ## 기술 스택 💻
 <img src="https://img.shields.io/badge/Unity-FFFFFF?style=for-the-badge&logo=Unity&logoColor=black">
+<img src="https://img.shields.io/badge/csharp-512BD4?style=for-the-badge&logo=csharp&logoColor=white">
+
 (Version : Unity 2022.3.22f1 - LTS)
 <br/>
-<img src="https://img.shields.io/badge/csharp-512BD4?style=for-the-badge&logo=csharp&logoColor=white">
 
 ## 협업 가이드 및 규칙 Tool - 프로젝트 스케줄 📅
 #노션 Notion
