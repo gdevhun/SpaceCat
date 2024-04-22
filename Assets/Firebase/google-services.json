@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "794886672080",
+    "project_id": "ossteamproject-a4ea0",
+    "firebase_url": "https://ossteamproject-a4ea0-default-rtdb.firebaseio.com/",
+    "storage_bucket": "ossteamproject-a4ea0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794886672080:android:e16fe048004e3517de98d5",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.OSSProject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3Y9h9M_fkKXgSAIAhTtJSgGws3twqB0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
