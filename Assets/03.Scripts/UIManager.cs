@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager>
 {
-    
+
     private void Start()
     {
-        
+
     }
 
     public void MoveScene(string nextScene)
