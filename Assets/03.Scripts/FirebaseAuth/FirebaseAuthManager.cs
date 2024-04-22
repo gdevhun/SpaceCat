@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿// https://github.com/AakashGD890/FirebaseStarterProject 참조
+
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
 using System.Threading.Tasks;  // Necessary for using Task-based asynchronous programming
+using TMPro;
 
 public class FirebaseAuthManager : MonoBehaviour
 {
@@ -16,16 +19,17 @@ public class FirebaseAuthManager : MonoBehaviour
     // UI elements for login
     [Space]
     [Header("Login")]
-    public InputField emailLoginField;
-    public InputField passwordLoginField;
+    public TMP_InputField emailLoginField;
+    public TMP_InputField passwordLoginField;
+    public Toggle autoLoginToggle;
 
     // UI elements for registration
     [Space]
     [Header("Registration")]
-    public InputField nameRegisterField;
-    public InputField emailRegisterField;
-    public InputField passwordRegisterField;
-    public InputField confirmPasswordRegisterField;
+    public TMP_InputField nameRegisterField;
+    public TMP_InputField emailRegisterField;
+    public TMP_InputField passwordRegisterField;
+    public TMP_InputField confirmPasswordRegisterField;
 
     private void Start()
     {
@@ -87,7 +91,7 @@ public class FirebaseAuthManager : MonoBehaviour
             var reloadUserTask = user.ReloadAsync();
             yield return new WaitUntil(() => reloadUserTask.IsCompleted);
 
-            if (user.IsEmailVerified)
+            if (user.IsEmailVerified && autoLoginToggle.isOn)
             {
                 AutoLogin();
             }
