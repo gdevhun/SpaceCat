@@ -104,7 +104,7 @@ public class FirebaseAuthManager : MonoBehaviour
     // 자동 로그인 및 게임 패널로의 전환 처리 // Handle automatic login and transition to the game panel
     private void AutoLogin()
     {
-        References.userName = user.DisplayName;
+        References.Instance.userName = user.DisplayName;
         AuthUIManager.Instance.OpenGamePanel();
     }
 
@@ -140,7 +140,7 @@ public class FirebaseAuthManager : MonoBehaviour
 
             if (user.IsEmailVerified)
             {
-                References.userName = user.DisplayName;
+                References.Instance.userName = user.DisplayName;
                 AuthUIManager.Instance.OpenGamePanel();
             }
             else
@@ -225,10 +225,10 @@ public class FirebaseAuthManager : MonoBehaviour
         }
     }
 
-    // Load the game scene
+    // Load the next scene
     public void OpenGameScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("NextScene");
     }
 
     // 오류 처리를 중앙 집중화하여 Firebase 작업의 오류를 처리하는 메서드 // Method to handle errors from Firebase tasks, centralizing error handling

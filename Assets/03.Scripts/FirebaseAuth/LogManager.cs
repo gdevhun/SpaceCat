@@ -1,22 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LogManager : MonoBehaviour
+public class LogManager : Singleton<LogManager>
 {
-    public static LogManager Instance;
 
     [SerializeField]
     private Text _warningText;
-
-    private void Awake()
-    {
-        if(Instance == null)
-
-        {
-            Instance = this;
-        }
-    }
 
     private void Start()
     {
