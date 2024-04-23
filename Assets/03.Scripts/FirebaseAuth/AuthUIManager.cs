@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AuthUIManager : MonoBehaviour
+public class AuthUIManager : Singleton<AuthUIManager>
 {
-    public static AuthUIManager Instance;
-
     [SerializeField]
     private GameObject loginPanel;
 
@@ -22,18 +20,6 @@ public class AuthUIManager : MonoBehaviour
     [SerializeField]
     private Text emailVerificationText;
 
-    private void Awake()
-    {
-        CreateInstance();
-    }
-
-    private void CreateInstance()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
     public void ClearUI()
     {
         loginPanel.SetActive(false);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class References : MonoBehaviour
+public class References : Singleton<References>
 {
-    public static string userName = "";
+    public string userName = "";
 }
