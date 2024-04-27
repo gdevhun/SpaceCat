@@ -1,4 +1,6 @@
-﻿// https://github.com/AakashGD890/FirebaseStarterProject 참조
+﻿// https://github.com/AakashGD890/FirebaseStarterProject
+// https://firebase.google.com/docs/auth/unity/start?hl=ko)&_gl=1*2pq1it*_up*MQ..*_ga*NDUxNzQ2NTQ0LjE3MTQwMDYzODg.*_ga_CW55HF8NVT*MTcxNDAwNjM4OC4xLjAuMTcxNDAwNjM4OC4wLjAuMA.. (firebase 공식 docs)
+// 를 참조함 
 
 using System.Collections;
 using UnityEngine;
@@ -29,6 +31,11 @@ public class FirebaseAuthManager : MonoBehaviour
     public TMP_InputField emailRegisterField;
     public TMP_InputField passwordRegisterField;
     public TMP_InputField confirmPasswordRegisterField;
+    public Toggle agreeTermsOfServiceToggle;
+
+    [Space]
+    [Header("FindIDPW")]
+    public TMP_InputField emailResetField;  // 비밀번호 재설정을 위한 이메일 입력 필드
 
     private void Start()
     {
@@ -54,12 +61,11 @@ public class FirebaseAuthManager : MonoBehaviour
         }
     }
 
-    // Initialize Firebase services
+    // Initialize Firebase modelues
     void InitializeFirebase()
     {
         //Set the default instance object
         auth = FirebaseAuth.DefaultInstance;
-        auth.StateChanged -= AuthStateChanged;
         auth.StateChanged += AuthStateChanged;
         AuthStateChanged(this, null); // 인증 상태 초기 확인 트리거 // Trigger initial check of auth state
     }
@@ -77,8 +83,7 @@ public class FirebaseAuthManager : MonoBehaviour
         }
         else if (user == null)
         {
-            Debug.Log("Signed out");
-            AuthUIManager.Instance.OpenLoginPanel();
+            UIManagerAuth.Instance.OpenLoginPanel();
         }
     }
 
@@ -90,13 +95,13 @@ public class FirebaseAuthManager : MonoBehaviour
             var reloadUserTask = user.ReloadAsync();
             yield return new WaitUntil(() => reloadUserTask.IsCompleted);
 
-            if (user.IsEmailVerified)
+            if (user != null && user.IsEmailVerified)
             {
                 AutoLogin();
             }
             else
             {
-                AuthUIManager.Instance.OpenLoginPanel();
+                UIManagerAuth.Instance.OpenLoginPanel();
             }
         }
     }
@@ -105,7 +110,7 @@ public class FirebaseAuthManager : MonoBehaviour
     private void AutoLogin()
     {
         References.Instance.userName = user.DisplayName;
-        AuthUIManager.Instance.OpenGamePanel();
+        UIManagerAuth.Instance.OpenGamePanel();
     }
 
     // 현재 사용자를 '로그아웃'하는 공개 메서드 // Public method to log out the current user
@@ -126,8 +131,13 @@ public class FirebaseAuthManager : MonoBehaviour
     // Coroutine to handle user login
     private IEnumerator LoginAsync(string email, string password)
     {
+        if (!ValidateInput(email, "이메일을 입력해야 합니다.") ||
+            !ValidateInput(password, "비밀번호를 입력해야 합니다."))
+            yield break;
+
         var loginTask = auth.SignInWithEmailAndPasswordAsync(email, password);
         yield return new WaitUntil(() => loginTask.IsCompleted);
+
 
         if (loginTask.Exception != null)
         {
@@ -141,11 +151,12 @@ public class FirebaseAuthManager : MonoBehaviour
             if (user.IsEmailVerified)
             {
                 References.Instance.userName = user.DisplayName;
-                AuthUIManager.Instance.OpenGamePanel();
+                UIManagerAuth.Instance.OpenGamePanel();
             }
             else
             {
-                SendEmailForVerification();
+                // 사용자에게 이메일 확인이 필요하다는 메시지 표시
+                UIManagerAuth.Instance.ShowError("이메일 확인을 아직 안한 계정입니다. 메일을 확인해 주세요.");
             }
         }
     }
@@ -160,15 +171,20 @@ public class FirebaseAuthManager : MonoBehaviour
     // Coroutine to handle user registration
     private IEnumerator RegisterAsync(string name, string email, string password, string confirmPassword)
     {
-        if (name == "" || email == "" || password == "" || confirmPassword == "")
-        {
-            Debug.LogError("All fields must be filled.");
+        if (!ValidateInput(name, "이름을 입력해야 합니다.") ||
+            !ValidateInput(email, "이메일을 입력해야 합니다.") ||
+            !ValidateInput(password, "비밀번호를 입력해야 합니다.") ||
+            !ValidateInput(confirmPassword, "비밀번호 확인을 입력해야 합니다."))
             yield break;
-        }
 
         if (password != confirmPassword)
         {
-            Debug.LogError("Passwords do not match.");
+            UIManagerAuth.Instance.ShowError("비밀번호가 일치하지 않습니다.");
+            yield break;
+        }
+        if (!agreeTermsOfServiceToggle.isOn)
+        {
+            UIManagerAuth.Instance.ShowError("서비스 약관에 동의해 주세요.");
             yield break;
         }
 
@@ -220,8 +236,33 @@ public class FirebaseAuthManager : MonoBehaviour
             else
             {
                 Debug.Log("Email verification sent successfully to " + user.Email);
-                AuthUIManager.Instance.ShowVerificationResponse(true, user.Email, null);
+                UIManagerAuth.Instance.ShowVerificationResponse(true, user.Email, null);
             }
+        }
+    }
+
+    // 비밀번호 재설정 이메일을 보내는 메서드
+    public void SendEmailForResetPassword()
+    {
+        StartCoroutine(SendEmailForResetPasswordAsync(emailResetField.text));
+    }
+
+    // 비밀번호 재설정 이메일을 비동기적으로 보내는 코루틴
+    private IEnumerator SendEmailForResetPasswordAsync(string email)
+    {
+        if (!ValidateInput(email, "이메일을 입력해야 합니다."))
+            yield break;
+
+        var resetEmailTask = auth.SendPasswordResetEmailAsync(email);
+        yield return new WaitUntil(() => resetEmailTask.IsCompleted);
+
+        if (resetEmailTask.Exception != null)
+        {
+            HandleFirebaseError(resetEmailTask, "Reset Password");
+        }
+        else
+        {
+            Debug.Log("Password reset email sent successfully.");
         }
     }
 
@@ -231,22 +272,66 @@ public class FirebaseAuthManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("NextScene");
     }
 
-    // 오류 처리를 중앙 집중화하여 Firebase 작업의 오류를 처리하는 메서드 // Method to handle errors from Firebase tasks, centralizing error handling
-    private void HandleFirebaseError(Task task, string context)
+    // 입력 오류에 대한 처리
+    private bool ValidateInput(string input, string errorMessage)
     {
-        FirebaseException firebaseException = task.Exception.GetBaseException() as FirebaseException;
-        if (firebaseException != null)
+        if (string.IsNullOrWhiteSpace(input))
         {
-            AuthError errorCode = (AuthError)firebaseException.ErrorCode;
-            string errorMessage = $"{context} Error: {errorCode.ToString()}";
-            Debug.LogError(errorMessage);
-            // AuthUIManager.Instance.ShowMessage(errorMessage); // TODO // message box 구현 
+            UIManagerAuth.Instance.ShowError(errorMessage);
+            return false;
         }
-        else
-        {
-            Debug.LogError($"{context} failed with unknown error.");
-            // AuthUIManager.Instance.ShowMessage($"{context} failed with unknown error.");
-        }
+        return true;
     }
+
+    // 오류 처리를 중앙 집중화하여 Firebase 작업의 오류를 처리하는 메서드 // Method to handle errors from Firebase tasks, centralizing error handling
+    private void HandleFirebaseError(Task task, string operation)
+    {
+        FirebaseException firebaseEx = task.Exception.Flatten().InnerExceptions[0] as FirebaseException;
+        AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
+
+        string message = "Login Failed: " + errorCode.ToString();
+        switch (errorCode)
+        {
+            case AuthError.InvalidEmail:
+                message = "이메일 형식이 올바르지 않습니다. 올바른 이메일 주소를 입력해 주세요.";
+                break;
+            case AuthError.WrongPassword:
+                message = "잘못된 비밀번호입니다. 비밀번호를 다시 확인해 주세요.";
+                break;
+            case AuthError.UserNotFound:
+                message = "계정을 찾을 수 없습니다. 이메일 주소를 확인하거나 새 계정을 등록하세요.";
+                break;
+            case AuthError.UserDisabled:
+                message = "사용자 계정이 비활성화되었습니다. 지원 팀에 문의하세요.";
+                break;
+            case AuthError.TooManyRequests:
+                message = "요청이 너무 많습니다. 나중에 다시 시도하세요.";
+                break;
+            case AuthError.NetworkRequestFailed:
+                message = "네트워크 오류가 발생했습니다. 인터넷 연결을 확인하세요.";
+                break;
+            case AuthError.OperationNotAllowed:
+                message = "이메일 및 비밀번호 로그인이 활성화되지 않았습니다. 설정을 확인하세요.";
+                break;
+            case AuthError.EmailAlreadyInUse:
+                message = "이 이메일은 이미 사용 중입니다. 다른 이메일을 사용하세요.";
+                break;
+            case AuthError.WeakPassword:
+                message = "비밀번호가 너무 약합니다. 더 강력한 비밀번호를 사용하세요.";
+                break;
+            case AuthError.RequiresRecentLogin:
+                message = "최근 로그인 정보가 필요한 작업입니다. 다시 로그인해 주세요.";
+                break;
+            // 추가적인 오류 코드에 대한 케이스는 여기에 추가
+            default:
+                message = "알 수 없는 오류가 발생했습니다. 오류 코드: " + (firebaseEx != null ? errorCode.ToString() : "None");
+                break;
+        }
+
+        UIManagerAuth.Instance.ShowError(message);
+        Debug.LogError(message);
+    }
+
+
 
 }
