@@ -10,7 +10,7 @@ public class FirebaseReadingManager : MonoBehaviour
 {
     [Header("Firebase")]
     // Firebase 종속성 상태 변수
-    public DependencyStatus dependencyStatus;
+    public DependencyStatus dependencyStatus;    
     [Space]
     [Header("MBTI Type")]
     public TMP_InputField MBTI_Field;
@@ -31,9 +31,7 @@ public class FirebaseReadingManager : MonoBehaviour
 
 
     private void Start()
-    {     
-        FirebaseApp.DefaultInstance.Options.DatabaseUrl =
-                    new System.Uri("https://ossteamproject-a4ea0-default-rtdb.firebaseio.com/");
+    {   
         StartCoroutine(CheckAndFixDependenciesAsync(MBTI_Field.text));
     }
 
@@ -57,8 +55,7 @@ public class FirebaseReadingManager : MonoBehaviour
     } 
 
     protected virtual void InitializeFirebaseDB(string mbti)
-    {
-        FirebaseApp app = FirebaseApp.DefaultInstance;
+    {        
         FetchMBTIInfo(mbti);
         isFirebaseInitialized = true;
     }    
