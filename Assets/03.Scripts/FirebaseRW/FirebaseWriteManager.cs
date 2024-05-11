@@ -45,7 +45,7 @@ public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
         user = auth.CurrentUser;  // 현재 로그인된 사용자 가져오기
         if (user != null)
         {
-            Debug.Log("User is already logged in: " + user.UserId);
+            Debug.Log("User is already logged in: " + user.DisplayName);
         }
         else
         {
@@ -59,8 +59,8 @@ public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
     {        
         if (user != null)        
         {
-            string userId = user.UserId;
-            databaseReference.Child("USER").Child(userId).Child("mbti").SetValueAsync(mbti).ContinueWith(task => { //Firebase에 user에 mbti 종속한걸 쓰기
+            string username = user.DisplayName;
+            databaseReference.Child("USER").Child(username).Child("mbti").SetValueAsync(mbti).ContinueWith(task => { //Firebase에 user에 mbti 종속한걸 쓰기
                 if (task.IsFaulted)
                 {
                     Debug.LogError("Error writing MBTI to Firebase: " + task.Exception);
