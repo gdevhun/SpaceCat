@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using Firebase;
+using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
 using TMPro;
@@ -11,12 +12,10 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
     [Header("Firebase")]
     // Firebase 종속성 상태 변수
     public DependencyStatus dependencyStatus;    
-    [Space]
-    [Header("MBTI Type")]
-    public TMP_InputField MBTI_Field;
-    
-    // 데이터 저장 리스트    
-    ArrayList leaderBoard = new ArrayList(); 
+    //[Space]
+    //[Header("MBTI Type")]
+    //public TMP_InputField MBTI_Field;
+          
     protected bool isFirebaseInitialized = false;
     private string logText = "";
     //로그 저장 크기
@@ -28,14 +27,16 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
     private string hobby1;
     private string hobby2;
     private string hobby3;
-
+    //현재 로그인된 사용자
+    private FirebaseAuth auth;
+    private FirebaseUser user;  
 
     private void Start()
     {   
-        StartCoroutine(CheckAndFixDependenciesAsync(MBTI_Field.text));
+        StartCoroutine(CheckAndFixDependenciesAsync());
     }
 
-    private IEnumerator CheckAndFixDependenciesAsync(string mbti)
+    private IEnumerator CheckAndFixDependenciesAsync()
     {
         // Firebase 종속성 검사 시작
         var dependencyTask = FirebaseApp.CheckAndFixDependenciesAsync();
@@ -47,12 +48,40 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
         dependencyStatus = dependencyTask.Result;
 
         // 종속성 상태에 따라 분기 처리
-        if (dependencyStatus == DependencyStatus.Available) {        
-            InitializeFirebaseDB(mbti);
+        if (dependencyStatus == DependencyStatus.Available) {
+            FetchCurrentUserMBTI();
         } else {        
             Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
         }
-    } 
+    }
+
+    // 현재 사용자 정보 가져오는 메소드
+    private void FetchCurrentUserMBTI()
+    {
+        auth = FirebaseAuth.DefaultInstance;
+        user = auth.CurrentUser;
+
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("USER").Child(user.DisplayName).Child("mbti");//로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
+        reference.GetValueAsync().ContinueWithOnMainThread(task => {
+            if (task.Exception != null)
+            {
+                Debug.Log(task.Exception.ToString());
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                if (snapshot.Exists)
+                {
+                    string currentUserMBTI = snapshot.Value.ToString();
+                    InitializeFirebaseDB(currentUserMBTI);
+                }
+                else
+                {
+                    DebugLog("No MBTI found for current user.");
+                }
+            }
+        });
+    }
 
     protected virtual void InitializeFirebaseDB(string mbti)
     {        
@@ -60,7 +89,7 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
         isFirebaseInitialized = true;
     }    
 
-     // 출력 로그 관리
+    // 출력 로그 관리
     public void DebugLog(string s)
     {
         Debug.Log(s);
