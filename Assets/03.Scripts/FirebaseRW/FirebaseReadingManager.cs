@@ -7,7 +7,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using TMPro;
 
-public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
+public class FirebaseReadingManager : MonoBehaviour
 {
     [Header("Firebase")]
     // Firebase 종속성 상태 변수
