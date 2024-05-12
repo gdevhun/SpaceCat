@@ -27,7 +27,9 @@
 
 ## 협업 가이드 및 규칙 Tool - 프로젝트 스케줄 📅
 #노션 Notion
-https://www.notion.so/ab5763575e0940c09e21e68cd2c7b464
+- https://www.notion.so/ab5763575e0940c09e21e68cd2c7b464
+
+- https://unmarred-deer-17b.notion.site/ab5763575e0940c09e21e68cd2c7b464?pvs=4
 
 <br/>
 .... 
