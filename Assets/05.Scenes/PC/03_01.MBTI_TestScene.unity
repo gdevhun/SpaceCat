@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 139694518}
   - component: {fileID: 139694517}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: FillImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 319296321}
   - component: {fileID: 319296320}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CurText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1897,7 +1897,7 @@ GameObject:
   - component: {fileID: 1904748155}
   - component: {fileID: 1904748154}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BGImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2128,6 +2128,8 @@ MonoBehaviour:
   questionText: {fileID: 1509524432}
   playerSelection1: {fileID: 2122006836}
   playerSelection2: {fileID: 273779418}
+  curQuestionNumber: {fileID: 319296320}
+  imageBar: {fileID: 139694517}
 --- !u!1 &2122006834
 GameObject:
   m_ObjectHideFlags: 0
