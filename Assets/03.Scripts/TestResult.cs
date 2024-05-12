@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestResult : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class TestResult : MonoBehaviour
     //JvsP -> 4 8 12 16 20 24 28 32 36 40
 
     private bool _isTestOver;
-    private int[] _result = new int[8]; //선택지결과를 저장할 배열 
+    private int[] _result; //선택지결과를 저장할 배열 
     // I -> 0 E -> 1 S -> 2 N -> 3 T -> 4 F -> 5 P -> 6 J -> 7
     private int _curQuestionIndex; //현재질문 인덱스
     private string[] _questionStrings; //저장할 질문 스트링
@@ -22,9 +23,14 @@ public class TestResult : MonoBehaviour
     public TextMeshProUGUI questionText; //현재 보여주는 UI 질문텍스트
     public TextMeshProUGUI playerSelection1; //현재 보여주는 UI 선택지 1
     public TextMeshProUGUI playerSelection2; //현재 보여주는 UI 선택지 2
-
+    public TextMeshProUGUI curQuestionNumber;
+    public Image imageBar;
     private void Start()
     {
+        _result = new int[8];
+        _questionStrings = new string[40]; 
+        _answerString1 = new string[40]; 
+        _answerString2 = new string[40];
         _curQuestionIndex = 0;
         UpdateTextUI();
     }
@@ -36,6 +42,7 @@ public class TestResult : MonoBehaviour
            //40개의 질문에 대한 대답 끝
            //결과지 보여주기.
         }
+        
     }
 
     public void InitData() //받아온 데이터들을 연결
@@ -106,6 +113,8 @@ public class TestResult : MonoBehaviour
         questionText.text = _questionStrings[_curQuestionIndex];
         playerSelection1.text = _answerString1[_curQuestionIndex];
         playerSelection2.text = _answerString2[_curQuestionIndex];
+        curQuestionNumber.text= $" {_curQuestionIndex} / 40";
+        imageBar.fillAmount = (float)_curQuestionIndex / 40f;
     }
 }
 
