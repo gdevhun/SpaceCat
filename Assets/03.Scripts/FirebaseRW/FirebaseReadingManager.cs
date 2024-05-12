@@ -1,4 +1,5 @@
 // https://github.com/firebase/quickstart-unity.git 를 참조함
+using System;
 using System.Collections;
 using UnityEngine;
 using Firebase;
@@ -27,6 +28,8 @@ public class FirebaseReadingManager : MonoBehaviour
     private string hobby1;
     private string hobby2;
     private string hobby3;
+    //질문 변수
+    private string question;
     //현재 로그인된 사용자
     private FirebaseAuth auth;
     private FirebaseUser user;  
@@ -73,7 +76,8 @@ public class FirebaseReadingManager : MonoBehaviour
                 if (snapshot.Exists)
                 {
                     string currentUserMBTI = snapshot.Value.ToString();
-                    InitializeFirebaseDB(currentUserMBTI);
+                    string Questions = snapshot.Value.ToString();
+                    InitializeFirebaseDB(currentUserMBTI, Questions);
                 }
                 else
                 {
@@ -83,9 +87,11 @@ public class FirebaseReadingManager : MonoBehaviour
         });
     }
 
-    protected virtual void InitializeFirebaseDB(string mbti)
-    {        
-        FetchMBTIInfo(mbti);
+    protected virtual void InitializeFirebaseDB(string mbti, string _question)
+    {
+        FetchAllQuestionsIInfo();              // 모든 MBTI 질문 리스트 불러오기
+        FetchQuestionsInfo(_question);    // MBTI Q/A 불러오기
+        FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
         isFirebaseInitialized = true;
     }    
 
@@ -143,6 +149,86 @@ public class FirebaseReadingManager : MonoBehaviour
             }
         });
     }
+
+    // 모든 MBTI 질문 리스트 불러오기
+    public void FetchAllQuestionsIInfo()
+    {
+        for(int i = 1; i <= 40; i++)
+        {
+            string _question = i.ToString();
+            FetchQuestionsInfo(_question); // 리스트 i 번째의 데이터를 불러오기
+        }
+    }
+
+    // MBTI 번호에 따른 각 Q/A 불러오기
+    public void FetchQuestionsInfo(string _question)
+    {
+        if (string.IsNullOrEmpty(_question))
+        {
+            DebugLog("유효하지 않은 문제입니다.");
+            return;
+        }
+        DebugLog($"{_question}번 문제에 대한 정보를 불러오는 중");
+
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("Questions").Child(_question);
+
+        DebugLog("Fetching data...");
+        reference.GetValueAsync().ContinueWithOnMainThread(task => {
+            if (task.IsFaulted)
+            {
+                // AggregateException을 평탄화하여 각각의 예외를 처리
+                foreach (Exception ex in task.Exception.Flatten().InnerExceptions)
+                {
+                    Debug.Log($"Exception caught: {ex.Message}");
+                    Debug.Log(task.Exception.ToString());
+                }
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                if (snapshot.Exists)
+                {
+                    // "question" 데이터 읽기
+                    if (snapshot.HasChild("question"))
+                    {
+                        question = snapshot.Child("question").Value.ToString();
+                        DebugLog($"Question for {_question}: {question}");
+                    }
+
+                    // "answer" 데이터 읽기
+                    if (snapshot.HasChild("answer"))
+                    {
+                        DataSnapshot answerSnapShot = snapshot.Child("answer");
+                        if (answerSnapShot.HasChild("a"))
+                        {
+                            string answerA = answerSnapShot.Child("a").Value.ToString();
+                            Debug.Log($"Answer A for (_list): {answerA}");
+                        }
+                        if (answerSnapShot.HasChild("b"))
+                        {
+                            string answerB= answerSnapShot.Child("b").Value.ToString();
+                            Debug.Log($"Answer A for (_list): {answerB}");
+                        }
+                        if (answerSnapShot.HasChild("re1"))
+                        {
+                            string typeRe1 = answerSnapShot.Child("re1").Value.ToString();
+                            Debug.Log($"Answer re1 for (_list): {typeRe1}");
+                        }
+                        if (answerSnapShot.HasChild("re2"))
+                        {
+                            string typeRe2 = answerSnapShot.Child("re2").Value.ToString();
+                            Debug.Log($"Answer re2 for (_list): {typeRe2}");
+                        }
+                    }
+                }
+                else
+                {
+                    DebugLog($"No data found for question: {_question}");
+                }
+            }
+        });
+    }
+
     public string GetDetail()
     {
         return Detail;
@@ -161,4 +247,9 @@ public class FirebaseReadingManager : MonoBehaviour
     {
         return hobby3;
     }   
+
+    public string GetQuestions()
+    {
+        return question;
+    }
 }
