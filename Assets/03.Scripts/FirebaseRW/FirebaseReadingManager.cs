@@ -8,7 +8,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using TMPro;
 
-public class FirebaseReadingManager : MonoBehaviour
+public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
 {
     [Header("Firebase")]
     // Firebase 종속성 상태 변수
@@ -17,22 +17,22 @@ public class FirebaseReadingManager : MonoBehaviour
     //[Header("MBTI Type")]
     //public TMP_InputField MBTI_Field;
           
-    protected bool isFirebaseInitialized = false;
-    private string logText = "";
+    protected bool _isFirebaseInitialized = false;
+    private string _logText = "";
     //로그 저장 크기
-    const int kMaxLogSize = 16382;
+    const int _kMaxLogSize = 16382;
     //스크롤 변수
-    private Vector2 scrollViewVector = Vector2.zero;
+    private Vector2 _scrollViewVector = Vector2.zero;
     //취미 변수
-    private string Detail;
-    private string hobby1;
-    private string hobby2;
-    private string hobby3;
+    private string _detail;
+    private string _hobby1;
+    private string _hobby2;
+    private string _hobby3;
     //질문 변수
-    private string question;
+    private string _question;
     //현재 로그인된 사용자
-    private FirebaseAuth auth;
-    private FirebaseUser user;  
+    private FirebaseAuth _auth;
+    private FirebaseUser _user;  
 
     private void Start()
     {   
@@ -61,10 +61,10 @@ public class FirebaseReadingManager : MonoBehaviour
     // 현재 사용자 정보 가져오는 메소드
     private void FetchCurrentUserMBTI()
     {
-        auth = FirebaseAuth.DefaultInstance;
-        user = auth.CurrentUser;
+        _auth = FirebaseAuth.DefaultInstance;
+        _user = _auth.CurrentUser;
 
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("USER").Child(user.DisplayName).Child("mbti");//로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("USER").Child(_user.DisplayName).Child("mbti");//로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
         reference.GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
             {
@@ -92,22 +92,22 @@ public class FirebaseReadingManager : MonoBehaviour
         FetchAllQuestionsIInfo();              // 모든 MBTI 질문 리스트 불러오기
         FetchQuestionsInfo(_question);    // MBTI Q/A 불러오기
         FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
-        isFirebaseInitialized = true;
+        _isFirebaseInitialized = true;
     }    
 
     // 출력 로그 관리
     public void DebugLog(string s)
     {
         Debug.Log(s);
-        logText += s + "\n";
+        _logText += s + "\n";
 
-        while (logText.Length > kMaxLogSize)
+        while (_logText.Length > _kMaxLogSize)
         {
-            int index = logText.IndexOf("\n");
-            logText = logText.Substring(index + 1);
+            int index = _logText.IndexOf("\n");
+            _logText = _logText.Substring(index + 1);
         }
 
-        scrollViewVector.y = int.MaxValue;
+        _scrollViewVector.y = int.MaxValue;
     }
 
     //MBTI에 따른 내용 불러오는 함수
@@ -128,20 +128,20 @@ public class FirebaseReadingManager : MonoBehaviour
                 DataSnapshot snapshot = task.Result;
                 if (snapshot.Exists) {
                     if (snapshot.HasChild("Detail")) {
-                        Detail = snapshot.Child("Detail").Value.ToString();
-                        DebugLog($"Detail for {mbtiType}: {Detail}");
+                        _detail = snapshot.Child("Detail").Value.ToString();
+                        DebugLog($"Detail for {mbtiType}: {_detail}");
                     } 
                     if (snapshot.HasChild("Hobby1")) {
-                        hobby1 = snapshot.Child("Hobby1").Value.ToString();
-                        DebugLog($"Hobby1 for {mbtiType}: {hobby1}");
+                        _hobby1 = snapshot.Child("Hobby1").Value.ToString();
+                        DebugLog($"Hobby1 for {mbtiType}: {_hobby1}");
                     }
                     if (snapshot.HasChild("Hobby2")) {
-                        hobby2 = snapshot.Child("Hobby2").Value.ToString();
-                        DebugLog($"Hobby2 for {mbtiType}: {hobby2}");
+                        _hobby2 = snapshot.Child("Hobby2").Value.ToString();
+                        DebugLog($"Hobby2 for {mbtiType}: {_hobby2}");
                     }
                     if (snapshot.HasChild("Hobby3")) {
-                        hobby3 = snapshot.Child("Hobby3").Value.ToString();
-                        DebugLog($"Hobby3 for {mbtiType}: {hobby3}");
+                        _hobby3 = snapshot.Child("Hobby3").Value.ToString();
+                        DebugLog($"Hobby3 for {mbtiType}: {_hobby3}");
                     }
                 } else {
                     DebugLog($"No data found for MBTI type: {mbtiType}");
@@ -191,8 +191,8 @@ public class FirebaseReadingManager : MonoBehaviour
                     // "question" 데이터 읽기
                     if (snapshot.HasChild("question"))
                     {
-                        question = snapshot.Child("question").Value.ToString();
-                        DebugLog($"Question for {_question}: {question}");
+                        _question = snapshot.Child("question").Value.ToString();
+                        DebugLog($"Question for {_question}: {_question}");
                     }
 
                     // "answer" 데이터 읽기
@@ -231,25 +231,25 @@ public class FirebaseReadingManager : MonoBehaviour
 
     public string GetDetail()
     {
-        return Detail;
+        return _detail;
     }
     public string GetHobby1()
     {
-        return hobby1;
+        return _hobby1;
     }
 
     public string GetHobby2()
     {
-        return hobby2;
+        return _hobby2;
     }
 
     public string GetHobby3()
     {
-        return hobby3;
+        return _hobby3;
     }   
 
     public string GetQuestions()
     {
-        return question;
+        return _question;
     }
 }

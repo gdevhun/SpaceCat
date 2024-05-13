@@ -5,21 +5,21 @@ using Firebase.Database;
 using Firebase.Auth;
 using TMPro;
 
-public class FirebaseWriteManager : MonoBehaviour
+public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
 {
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
-    private FirebaseAuth auth;
-    private FirebaseUser user;
+    private FirebaseAuth _auth;
+    private FirebaseUser _user;
     [Space]
     [Header("MBTI")]
-    public TMP_InputField mbtiInputField;
-    private DatabaseReference databaseReference;       
+    public TMP_InputField _mbtiInputField;
+    private DatabaseReference _databaseReference;       
 
     void Start()
     {       
        StartCoroutine(CheckAndFixDependenciesAsync());
-       mbtiInputField.onValueChanged.AddListener(delegate { SaveMBTI(mbtiInputField.text); });       
+       _mbtiInputField.onValueChanged.AddListener(delegate { SaveMBTI(_mbtiInputField.text); });       
     }
 
 
@@ -41,26 +41,26 @@ public class FirebaseWriteManager : MonoBehaviour
     }
     private void InitializeFirebase()
     {
-        auth = FirebaseAuth.DefaultInstance;
-        user = auth.CurrentUser;  // 현재 로그인된 사용자 가져오기
-        if (user != null)
+        _auth = FirebaseAuth.DefaultInstance;
+        _user = _auth.CurrentUser;  // 현재 로그인된 사용자 가져오기
+        if (_user != null)
         {
-            Debug.Log("User is already logged in: " + user.DisplayName);
+            Debug.Log("User is already logged in: " + _user.DisplayName);
         }
         else
         {
            Debug.LogError("No user is currently logged in.");
         }
-        databaseReference = FirebaseDatabase.DefaultInstance.RootReference;        
+        _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;        
     }
        
 
     public void SaveMBTI(string mbti)
     {        
-        if (user != null)        
+        if (_user != null)        
         {
-            string username = user.DisplayName;
-            databaseReference.Child("USER").Child(username).Child("mbti").SetValueAsync(mbti).ContinueWith(task => { //Firebase에 user에 mbti 종속한걸 쓰기
+            string username = _user.DisplayName;
+            _databaseReference.Child("USER").Child(username).Child("mbti").SetValueAsync(mbti).ContinueWith(task => { //Firebase에 user에 mbti 종속한걸 쓰기
                 if (task.IsFaulted)
                 {
                     Debug.LogError("Error writing MBTI to Firebase: " + task.Exception);
