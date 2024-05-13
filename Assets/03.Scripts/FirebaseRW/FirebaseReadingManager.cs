@@ -188,11 +188,14 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                 DataSnapshot snapshot = task.Result;
                 if (snapshot.Exists)
                 {
+                    string _questionData;
+                    int temp = (int.Parse(_question));
                     // "question" 데이터 읽기
                     if (snapshot.HasChild("question"))
                     {
-                        _question = snapshot.Child("question").Value.ToString();
-                        DebugLog($"Question for {_question}: {_question}");
+                        _questionData = snapshot.Child("question").Value.ToString();
+                        DebugLog($"Question for {_question}: {_questionData}");
+                        TestResult.Instance._questionStrings[temp-1] = _questionData;
                     }
 
                     // "answer" 데이터 읽기
@@ -203,13 +206,15 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                         {
                             string answerA = answerSnapShot.Child("a").Value.ToString();
                             Debug.Log($"Answer A for (_list): {answerA}");
+                            TestResult.Instance._answerString1[temp-1] = answerA;
                         }
                         if (answerSnapShot.HasChild("b"))
                         {
                             string answerB= answerSnapShot.Child("b").Value.ToString();
                             Debug.Log($"Answer A for (_list): {answerB}");
+                            TestResult.Instance._answerString2[temp-1] = answerB;
                         }
-                        if (answerSnapShot.HasChild("re1"))
+                        /*if (answerSnapShot.HasChild("re1"))
                         {
                             string typeRe1 = answerSnapShot.Child("re1").Value.ToString();
                             Debug.Log($"Answer re1 for (_list): {typeRe1}");
@@ -218,7 +223,7 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                         {
                             string typeRe2 = answerSnapShot.Child("re2").Value.ToString();
                             Debug.Log($"Answer re2 for (_list): {typeRe2}");
-                        }
+                        }*/
                     }
                 }
                 else
