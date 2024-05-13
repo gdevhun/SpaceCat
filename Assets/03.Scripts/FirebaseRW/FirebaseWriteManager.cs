@@ -19,9 +19,18 @@ public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
     void Start()
     {       
        StartCoroutine(CheckAndFixDependenciesAsync());
-       _mbtiInputField.onValueChanged.AddListener(delegate { SaveMBTI(_mbtiInputField.text); });       
+
+       //if (_mbtiInputField != null)
+       //{
+           _mbtiInputField.onValueChanged.AddListener(delegate { SaveMBTI(_mbtiInputField.text); });
+       //}
+       //else
+       //{
+           //SaveMBTI(TestResult.Instance.ShowResult());
+       //}
     }
 
+    
 
     private IEnumerator CheckAndFixDependenciesAsync()
     {

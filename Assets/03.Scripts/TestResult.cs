@@ -8,6 +8,15 @@ using UnityEngine.UI;
 
 public class TestResult : MonoBehaviour
 {
+    public static TestResult Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     //IvsE -> 1 5 9 13 17 21 25 29 33 37 
     //SvsN -> 2 6 10 14 18 22 26 30 34 38
     //TvsF -> 3 7 11 15 19 23 27 31 35 39
@@ -17,9 +26,9 @@ public class TestResult : MonoBehaviour
     private int[] _result; //선택지결과를 저장할 배열 
     // I -> 0 E -> 1 S -> 2 N -> 3 T -> 4 F -> 5 P -> 6 J -> 7
     private int _curQuestionIndex; //현재질문 인덱스
-    private string[] _questionStrings; //저장할 질문 스트링
-    private string[] _answerString1; //저장할 답 스트링1
-    private string[] _answerString2; //저장할 답 스트링2
+    public string[] _questionStrings; //저장할 질문 스트링
+    public string[] _answerString1; //저장할 답 스트링1
+    public string[] _answerString2; //저장할 답 스트링2
     public TextMeshProUGUI questionText; //현재 보여주는 UI 질문텍스트
     public TextMeshProUGUI playerSelection1; //현재 보여주는 UI 선택지 1
     public TextMeshProUGUI playerSelection2; //현재 보여주는 UI 선택지 2
@@ -45,9 +54,33 @@ public class TestResult : MonoBehaviour
         
     }
 
-    public void InitData() //받아온 데이터들을 연결
+    public string ShowResult() //받아온 데이터들을 연결
     {
+        string firstMBTI;
+        string secondMBTI;
+        string thirdMBTI;
+        string fourthMBTI;
+        string finalResult;
+        // I -> 0 E -> 1 S -> 2 N -> 3 T -> 4 F -> 5 P -> 6 J -> 7
+        var i_num = _result[0];
+        var e_num = _result[1];
         
+        var s_num = _result[2];
+        var n_num = _result[3];
+        
+        var t_num = _result[4];
+        var f_num = _result[5];
+        
+        var p_num = _result[6];
+        var j_num = _result[7];
+        
+        firstMBTI = i_num > e_num ? "I" : "E";  
+        secondMBTI = s_num > n_num ? "S" : "N";
+        thirdMBTI = t_num > f_num ? "T" : "F";
+        fourthMBTI = p_num > j_num ? "P" : "J";
+        finalResult = fourthMBTI + secondMBTI + thirdMBTI + fourthMBTI;
+        Debug.Log(fourthMBTI);
+        return finalResult;
     }
     public void OnPlayerSelect() //플레이어 선택버튼함수
     {
