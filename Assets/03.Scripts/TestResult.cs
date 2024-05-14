@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class TestResult : MonoBehaviour
 {
     public static TestResult Instance;
-
+    public GameObject firebaseWriteManager;
     private void Awake()
     {
         if (Instance == null)
@@ -49,9 +49,9 @@ public class TestResult : MonoBehaviour
         if (_isTestOver)
         {  
            //40개의 질문에 대한 대답 끝
-           //결과지 보여주기.
+           firebaseWriteManager.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
+           //MBTI 결과 씬 이동 결과지 보여주기.
         }
-        
     }
 
     public string ShowResult() //받아온 데이터들을 연결
