@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 1388732047}
   - component: {fileID: 1388732046}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: SceneConManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1099,7 +1099,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: LoginScene
+          m_StringArgument: 02.LoginScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!222 &1985660783
