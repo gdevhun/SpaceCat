@@ -5,7 +5,7 @@ using Firebase.Database;
 using Firebase.Auth;
 using TMPro;
 
-public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
+public class FirebaseWriteManager : MonoBehaviour
 {
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
@@ -19,18 +19,8 @@ public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
     void Start()
     {       
        StartCoroutine(CheckAndFixDependenciesAsync());
-
-       //if (_mbtiInputField != null)
-       //{
-           _mbtiInputField.onValueChanged.AddListener(delegate { SaveMBTI(_mbtiInputField.text); });
-       //}
-       //else
-       //{
-           //SaveMBTI(TestResult.Instance.ShowResult());
-       //}
+       _mbtiInputField.onValueChanged.AddListener(delegate { SaveMBTI(_mbtiInputField.text); });
     }
-
-    
 
     private IEnumerator CheckAndFixDependenciesAsync()
     {
