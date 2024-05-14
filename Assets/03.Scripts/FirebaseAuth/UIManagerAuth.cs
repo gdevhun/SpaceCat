@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class UIManagerAuth : Singleton<UIManagerAuth>
 {
@@ -122,7 +123,7 @@ public class UIManagerAuth : Singleton<UIManagerAuth>
 
     public void MoveScene(string nextScene)
     {
-        UIManager.Instance.MoveScene(nextScene);
+        SceneConMananger.Instance.MoveScene(nextScene);
     }
 
 }
