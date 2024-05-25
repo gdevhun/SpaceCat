@@ -1,4 +1,4 @@
-﻿// https://github.com/AakashGD890/FirebaseStarterProject
+// https://github.com/AakashGD890/FirebaseStarterProject
 // https://firebase.google.com/docs/auth/unity/start?hl=ko)&_gl=1*2pq1it*_up*MQ..*_ga*NDUxNzQ2NTQ0LjE3MTQwMDYzODg.*_ga_CW55HF8NVT*MTcxNDAwNjM4OC4xLjAuMTcxNDAwNjM4OC4wLjAuMA.. (firebase 공식 docs)
 // 를 참조함 
 
@@ -7,16 +7,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Database;
 using System.Threading.Tasks;  // Necessary for using Task-based asynchronous programming
 using TMPro;
 
-public class FirebaseAuthManager : MonoBehaviour
+public class FirebaseAuthManager : Singleton<FirebaseAuthManager>
 {
     // Firebase variables and references
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
     public FirebaseAuth auth;
     public FirebaseUser user;
+    public DatabaseReference databaseReference;
 
     // UI elements for login
     [Space]
