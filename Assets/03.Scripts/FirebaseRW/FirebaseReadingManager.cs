@@ -64,7 +64,7 @@ public class FirebaseReadingManager : MonoBehaviour
         _auth = FirebaseAuth.DefaultInstance;
         _user = _auth.CurrentUser;
 
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("USER").Child(_user.DisplayName).Child("mbti");//로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("USER").Child(_user.UserId).Child("mbti");//로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
         reference.GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
             {

@@ -70,3 +70,17 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Ignore keystore files
+*.keystore
+user.keystore
+
+# Set the default behavior to automatically normalize line endings
+* text=auto
+
+# Explicitly set the line endings for specific file types
+*.cs text eol=lf
+*.unity text eol=lf
+*.meta text eol=lf
+
+
