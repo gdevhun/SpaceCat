@@ -939,11 +939,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 2fabdf4b-75f7-468b-9d26-b252211589f4
+  cloudProjectId: af0153f9-5ccb-4932-a80e-644c5ebbeab0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: OSSTeamProject
-  organizationId: wjh9330-naver-com
+  organizationId: yoorimkim
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
