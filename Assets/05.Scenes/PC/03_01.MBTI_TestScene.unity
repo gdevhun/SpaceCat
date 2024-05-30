@@ -1084,6 +1084,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887069568}
   m_CullTransparentMesh: 1
+--- !u!1 &979886844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 979886846}
+  - component: {fileID: 979886845}
+  m_Layer: 0
+  m_Name: FirebaseWriteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &979886845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979886844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a718035bc48e2e428cf8a92f2b5e3f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dependencyStatus: 0
+  _mbtiInputField: {fileID: 0}
+--- !u!4 &979886846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979886844}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.22222233, y: -4.796297, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1114453797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,7 +1159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed75f074eddf6c42ae5bb911f6be864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firebaseWriteManager: {fileID: 490112797}
+  fireWriteManager: {fileID: 979886844}
+  fireReadingManager: {fileID: 490112797}
   _questionStrings: []
   _answerString1: []
   _answerString2: []
@@ -2223,7 +2270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed75f074eddf6c42ae5bb911f6be864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firebaseWriteManager: {fileID: 0}
+  fireWriteManager: {fileID: 0}
+  fireReadingManager: {fileID: 0}
   _questionStrings: []
   _answerString1: []
   _answerString2: []
@@ -6362,6 +6410,7 @@ SceneRoots:
   - {fileID: 1740742513}
   - {fileID: 1261086155}
   - {fileID: 627116300}
+  - {fileID: 1114453799}
   - {fileID: 1388732047}
   - {fileID: 490112799}
-  - {fileID: 1114453799}
+  - {fileID: 979886846}
