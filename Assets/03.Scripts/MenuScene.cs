@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,9 @@ using UnityEngine.UI;
 public class MenuScene : MonoBehaviour
 {
     public Button checkBtn;
-    public GameObject firebaseWriteManager;
+    public GameObject fireWriteManager;
     private string userMbti;
-
+    
     //03.MenuScene -> MBTI 검사시작 또는 mbti 아는 경우 로직 처리 스크립트
     private List<string> validMbtiList = new List<string> {
         "istj", "isfp", "infj", "intj", "infp", "intp", "isfj", "istp",
@@ -23,7 +24,7 @@ public class MenuScene : MonoBehaviour
             checkBtn.GetComponent<Button>().interactable = true;
             //유효한 MBTI
             userMbti = str;
-            firebaseWriteManager.GetComponent<FirebaseWriteManager>().SaveMBTI(userMbti);
+            fireWriteManager.GetComponent<FirebaseWriteManager>().SaveMBTI(userMbti);
         }
         else
         {

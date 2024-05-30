@@ -19,7 +19,6 @@ public class FirebaseWriteManager : MonoBehaviour
     void Start()
     {       
        StartCoroutine(CheckAndFixDependenciesAsync());
-       _mbtiInputField.onValueChanged.AddListener(delegate { SaveMBTI(_mbtiInputField.text); });
     }
 
     private IEnumerator CheckAndFixDependenciesAsync()

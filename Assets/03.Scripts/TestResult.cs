@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks.Triggers;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,13 +10,19 @@ using UnityEngine.UI;
 public class TestResult : MonoBehaviour
 {
     public static TestResult Instance;
-    public GameObject firebaseWriteManager;
+    public GameObject fireWriteManager;
+    public GameObject fireReadingManager;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+        _result = new int[8];
+        _questionStrings = new string[40]; 
+        _answerString1 = new string[40]; 
+        _answerString2 = new string[40];
+        _curQuestionIndex = 0;
     }
     //IvsE -> 1 5 9 13 17 21 25 29 33 37 
     //SvsN -> 2 6 10 14 18 22 26 30 34 38
@@ -34,13 +41,11 @@ public class TestResult : MonoBehaviour
     public TextMeshProUGUI playerSelection2; //현재 보여주는 UI 선택지 2
     public TextMeshProUGUI curQuestionNumber;
     public Image imageBar;
+
+   
     private void Start()
     {
-        _result = new int[8];
-        _questionStrings = new string[40]; 
-        _answerString1 = new string[40]; 
-        _answerString2 = new string[40];
-        _curQuestionIndex = 0;
+        fireReadingManager.GetComponent<FirebaseReadingManager>().FetchAllQuestionsIInfo();
         UpdateTextUI();
     }
 
@@ -49,7 +54,8 @@ public class TestResult : MonoBehaviour
         if (_isTestOver)
         {  
            //40개의 질문에 대한 대답 끝
-           firebaseWriteManager.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
+           fireWriteManager.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
+           SceneConMananger.Instance.MoveScene("MainScene");
            //MBTI 결과 씬 이동 결과지 보여주기.
         }
     }
@@ -148,6 +154,9 @@ public class TestResult : MonoBehaviour
         playerSelection2.text = _answerString2[_curQuestionIndex];
         curQuestionNumber.text= $" {_curQuestionIndex} / 40";
         imageBar.fillAmount = (float)_curQuestionIndex / 40f;
+        Debug.Log(questionText.text);
+        Debug.Log(playerSelection1.text);
+        Debug.Log(playerSelection2.text);
     }
 }
 
