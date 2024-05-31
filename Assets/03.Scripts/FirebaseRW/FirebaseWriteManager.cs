@@ -55,10 +55,11 @@ public class FirebaseWriteManager : MonoBehaviour
 
     public void SaveMBTI(string mbti)
     {        
-        if (_user != null)        
+        if (_user != null)
         {
+            string userId = _user.UserId;
             string username = _user.DisplayName;
-            _databaseReference.Child("USER").Child(username).Child("mbti").SetValueAsync(mbti).ContinueWith(task => { //Firebase에 user에 mbti 종속한걸 쓰기
+            _databaseReference.Child("USER").Child(userId).Child(username).Child("mbti").SetValueAsync(mbti).ContinueWith(task => { //Firebase에 user에 mbti 종속한걸 쓰기
                 if (task.IsFaulted)
                 {
                     Debug.LogError("Error writing MBTI to Firebase: " + task.Exception);

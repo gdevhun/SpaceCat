@@ -1876,6 +1876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dependencyStatus: 0
+  isTestInfoFetchCompleted: 0
 --- !u!4 &1744544727
 Transform:
   m_ObjectHideFlags: 0

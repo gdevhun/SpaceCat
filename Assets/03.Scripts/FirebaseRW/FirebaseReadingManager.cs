@@ -16,7 +16,7 @@ public class FirebaseReadingManager : MonoBehaviour
     //[Space]
     //[Header("MBTI Type")]
     //public TMP_InputField MBTI_Field;
-          
+    public bool isTestInfoFetchCompleted = false;
     protected bool _isFirebaseInitialized = false;
     private string _logText = "";
     //로그 저장 크기
@@ -64,7 +64,8 @@ public class FirebaseReadingManager : MonoBehaviour
         _auth = FirebaseAuth.DefaultInstance;
         _user = _auth.CurrentUser;
 
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("USER").Child(_user.UserId).Child("mbti");//로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.
+            GetReference("USER").Child(_user.UserId).Child(_user.DisplayName).Child("mbti");//로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
         reference.GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
             {
@@ -90,7 +91,6 @@ public class FirebaseReadingManager : MonoBehaviour
     protected virtual void InitializeFirebaseDB(string mbti, string _question)
     {
         FetchAllQuestionsIInfo();              // 모든 MBTI 질문 리스트 불러오기
-        FetchQuestionsInfo(_question);    // MBTI Q/A 불러오기
         FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
         _isFirebaseInitialized = true;
     }    
@@ -158,6 +158,8 @@ public class FirebaseReadingManager : MonoBehaviour
             string _question = i.ToString();
             FetchQuestionsInfo(_question); // 리스트 i 번째의 데이터를 불러오기
         }
+
+        isTestInfoFetchCompleted = true;
     }
 
     // MBTI 번호에 따른 각 Q/A 불러오기
