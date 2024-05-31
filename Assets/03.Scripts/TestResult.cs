@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using TMPro;
 using Unity.VisualScripting;
@@ -12,18 +13,6 @@ public class TestResult : MonoBehaviour
     public static TestResult Instance;
     public GameObject fireWriteManager;
     public GameObject fireReadingManager;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        _result = new int[8];
-        _questionStrings = new string[40]; 
-        _answerString1 = new string[40]; 
-        _answerString2 = new string[40];
-        _curQuestionIndex = 0;
-    }
     //IvsE -> 1 5 9 13 17 21 25 29 33 37 
     //SvsN -> 2 6 10 14 18 22 26 30 34 38
     //TvsF -> 3 7 11 15 19 23 27 31 35 39
@@ -41,14 +30,44 @@ public class TestResult : MonoBehaviour
     public TextMeshProUGUI playerSelection2; //현재 보여주는 UI 선택지 2
     public TextMeshProUGUI curQuestionNumber;
     public Image imageBar;
-
-   
-    private void Start()
+    private void Awake()
     {
-        fireReadingManager.GetComponent<FirebaseReadingManager>().FetchAllQuestionsIInfo();
-        UpdateTextUI();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        _result = new int[8];
+        _questionStrings = new string[40]; 
+        _answerString1 = new string[40]; 
+        _answerString2 = new string[40];
+        _curQuestionIndex = 0;
+    }
+   
+    /*private void Start()
+    {
+        WaitFetchTime().Forget();
     }
 
+    private async UniTaskVoid WaitFetchTime()
+    {
+        await UniTask.WaitUntil(()=> 
+            fireReadingManager.GetComponent<FirebaseReadingManager>().isTestInfoFetchCompleted);
+        UpdateTextUI();
+    }*/
+    private void Start()
+    {
+        StartCoroutine(WaitFetchTime());
+    }
+
+    private IEnumerator WaitFetchTime()
+    {
+        // fireReadingManager의 FirebaseReadingManager 컴포넌트가 준비될 때까지 대기
+        yield return new WaitUntil(() =>
+            fireReadingManager.GetComponent<FirebaseReadingManager>().isTestInfoFetchCompleted);
+        
+        // 조건이 충족되면 UI를 업데이트
+        UpdateTextUI();
+    }
     private void Update()
     {
         if (_isTestOver)
@@ -147,16 +166,17 @@ public class TestResult : MonoBehaviour
         if (_curQuestionIndex == 41)
         {   //만약 41번째라면 , 검사가 끝났다면
             _isTestOver = true;
+            return;
         }
         //각각 보이는 질문 답 UI 업데이트
-        questionText.text = _questionStrings[_curQuestionIndex];
-        playerSelection1.text = _answerString1[_curQuestionIndex];
-        playerSelection2.text = _answerString2[_curQuestionIndex];
+        questionText.text = _questionStrings[_curQuestionIndex-1];
+        playerSelection1.text = _answerString1[_curQuestionIndex-1];
+        playerSelection2.text = _answerString2[_curQuestionIndex-1];
         curQuestionNumber.text= $" {_curQuestionIndex} / 40";
         imageBar.fillAmount = (float)_curQuestionIndex / 40f;
-        Debug.Log(questionText.text);
-        Debug.Log(playerSelection1.text);
-        Debug.Log(playerSelection2.text);
+        Debug.Log(questionText.text+"!!!!");
+        Debug.Log(playerSelection1.text+"!!!!");
+        Debug.Log(playerSelection2.text+"!!!!");
     }
 }
 
