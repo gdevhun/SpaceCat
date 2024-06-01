@@ -10,8 +10,8 @@ public static class GPStoXY
     private const double SLAT2 = 60.0; // 투영 위도2(degree)
     private const double OLON = 126.0; // 기준점 경도(degree)
     private const double OLAT = 38.0; // 기준점 위도(degree)
-    private const double XO = 0.0; // 기준점 X좌표(GRID)
-    private const double YO = 0.0; // 기1준점 Y좌표(GRID)
+    private const double XO = 43; // 기준점 X좌표(GRID)
+    private const double YO = 136; // 기준점 Y좌표(GRID)
 
     public static Dictionary<string, double> dfs_xy_conf(string code, double v1, double v2)
     {
