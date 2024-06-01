@@ -9,6 +9,7 @@ public class Location : MonoBehaviour
     public static double first_Long; //최초 경도
     public static double current_Lat; //현재 위도
     public static double current_Long; //현재 경도
+    public static Dictionary<string, double> result;
 
     private static WaitForSeconds second = new WaitForSeconds(1);
      
@@ -62,12 +63,13 @@ public class Location : MonoBehaviour
         {            
             //현재 위치 갱신                        
             yield return second;
-            location = Input.location.lastData;
-
+            location = Input.location.lastData;            
             current_Lat = location.latitude;
             current_Long = location.longitude;
             Debug.Log(current_Lat);
             Debug.Log(current_Long);
+            result = GPStoXY.dfs_xy_conf("toXY", current_Lat, current_Long);
+            Debug.Log($"X: {result["x"]}, Y: {result["y"]}");
             yield return second;            
         }
     }
@@ -79,5 +81,11 @@ public class Location : MonoBehaviour
         {            
             Input.location.Stop();
         }
-    } 
+    }
+   
+    public static Dictionary<string, double> GetXY()
+    {
+        // 결과 반환시, result["x 또는 y"];로 호출
+        return result;
+    }
 }
