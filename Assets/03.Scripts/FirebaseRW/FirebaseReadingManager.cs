@@ -10,7 +10,7 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using TMPro;
 
-public class FirebaseReadingManager : MonoBehaviour
+public class FirebaseReadingManager : Singleton<FirebaseWriteManager>
 {
     [Header("Firebase")]
     // Firebase 종속성 상태 변수
@@ -158,7 +158,7 @@ public class FirebaseReadingManager : MonoBehaviour
     private async UniTask FetchAllQuestionsIInfo()
     {
         List<UniTask> fetchTasks = new List<UniTask>();
-        for (int i = 1; i <= 40; i++)
+        for (int i = 1; i <= 36; i++)
         {
             string _question = i.ToString();
             fetchTasks.Add(FetchQuestionsInfo(_question)); // 리스트 i 번째의 데이터를 불러오기
@@ -191,11 +191,24 @@ public class FirebaseReadingManager : MonoBehaviour
             {
                 questionData = snapshot.Child("question").Value.ToString();
                 DebugLog($"Question for {_question}: {questionData}");
+                // Null 체크 추가
+                if (TestResult.Instance._questionStrings == null)
+                {
+                    DebugLog($"{_question}: TestResult.Instance._questionStrings is null");
+                    return;
+                }
                 TestResult.Instance._questionStrings[temp - 1] = questionData;
             }
 
             if (snapshot.HasChild("answer"))
             {
+                // Null 체크 추가
+                if (TestResult.Instance._answerString1 == null || TestResult.Instance._answerString2 == null)
+                {
+                    DebugLog("TestResult.Instance._answerString1 or _answerString2 is null");
+                    return;
+                }
+
                 DataSnapshot answerSnapShot = snapshot.Child("answer");
                 if (answerSnapShot.HasChild("a"))
                 {
