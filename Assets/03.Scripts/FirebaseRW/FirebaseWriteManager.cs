@@ -5,7 +5,7 @@ using Firebase.Database;
 using Firebase.Auth;
 using TMPro;
 
-public class FirebaseWriteManager : MonoBehaviour
+public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
 {
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
@@ -19,7 +19,6 @@ public class FirebaseWriteManager : MonoBehaviour
     void Start()
     {       
        StartCoroutine(CheckAndFixDependenciesAsync());
-       _mbtiInputField.onValueChanged.AddListener(delegate { SaveMBTI(_mbtiInputField.text); });
     }
 
     private IEnumerator CheckAndFixDependenciesAsync()
@@ -56,10 +55,11 @@ public class FirebaseWriteManager : MonoBehaviour
 
     public void SaveMBTI(string mbti)
     {        
-        if (_user != null)        
+        if (_user != null)
         {
+            string userId = _user.UserId;
             string username = _user.DisplayName;
-            _databaseReference.Child("USER").Child(username).Child("mbti").SetValueAsync(mbti).ContinueWith(task => { //Firebase에 user에 mbti 종속한걸 쓰기
+            _databaseReference.Child("USER").Child(userId).Child(username).Child("mbti").SetValueAsync(mbti).ContinueWith(task => { //Firebase에 user에 mbti 종속한걸 쓰기
                 if (task.IsFaulted)
                 {
                     Debug.LogError("Error writing MBTI to Firebase: " + task.Exception);

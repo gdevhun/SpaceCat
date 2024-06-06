@@ -6,9 +6,11 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
+using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using TMPro;
 
-public class FirebaseReadingManager : MonoBehaviour
+public class FirebaseReadingManager : Singleton<FirebaseWriteManager>
 {
     [Header("Firebase")]
     // Firebase 종속성 상태 변수
@@ -16,7 +18,7 @@ public class FirebaseReadingManager : MonoBehaviour
     //[Space]
     //[Header("MBTI Type")]
     //public TMP_InputField MBTI_Field;
-          
+    public bool isTestInfoFetchCompleted = false;
     protected bool _isFirebaseInitialized = false;
     private string _logText = "";
     //로그 저장 크기
@@ -64,7 +66,8 @@ public class FirebaseReadingManager : MonoBehaviour
         _auth = FirebaseAuth.DefaultInstance;
         _user = _auth.CurrentUser;
 
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("USER").Child(_user.UserId).Child("mbti");//로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.
+            GetReference("USER").Child(_user.UserId).Child(_user.DisplayName).Child("mbti");    //로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
         reference.GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
             {
@@ -76,22 +79,21 @@ public class FirebaseReadingManager : MonoBehaviour
                 if (snapshot.Exists)
                 {
                     string currentUserMBTI = snapshot.Value.ToString();
-                    string Questions = snapshot.Value.ToString();
-                    InitializeFirebaseDB(currentUserMBTI, Questions);
+                    InitializeFirebaseDB(currentUserMBTI);
                 }
                 else
                 {
                     DebugLog("No MBTI found for current user.");
+                    InitializeFirebaseDB("N/A");
                 }
             }
         });
     }
 
-    protected virtual void InitializeFirebaseDB(string mbti, string _question)
+    protected async UniTask InitializeFirebaseDB(string mbti)
     {
-        FetchAllQuestionsIInfo();              // 모든 MBTI 질문 리스트 불러오기
-        FetchQuestionsInfo(_question);    // MBTI Q/A 불러오기
-        FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
+        await FetchAllQuestionsIInfo();              // 모든 MBTI 질문 리스트 불러오기
+        await FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
         _isFirebaseInitialized = true;
     }    
 
@@ -111,7 +113,7 @@ public class FirebaseReadingManager : MonoBehaviour
     }
 
     //MBTI에 따른 내용 불러오는 함수
-    public void FetchMBTIInfo(string mbtiType) {
+    private async UniTask FetchMBTIInfo(string mbtiType) {
         if (string.IsNullOrEmpty(mbtiType)) {
             DebugLog("유효하지 않은 MBTI 입니다.");
             return;
@@ -121,47 +123,53 @@ public class FirebaseReadingManager : MonoBehaviour
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("MBTI").Child(mbtiType);
 
         DebugLog("Fetching data...");
-        reference.GetValueAsync().ContinueWithOnMainThread(task => {
-            if (task.Exception != null) {
-                Debug.Log(task.Exception.ToString());
-            } else if (task.IsCompleted) {
-                DataSnapshot snapshot = task.Result;
-                if (snapshot.Exists) {
-                    if (snapshot.HasChild("Detail")) {
-                        _detail = snapshot.Child("Detail").Value.ToString();
-                        DebugLog($"Detail for {mbtiType}: {_detail}");
-                    } 
-                    if (snapshot.HasChild("Hobby1")) {
-                        _hobby1 = snapshot.Child("Hobby1").Value.ToString();
-                        DebugLog($"Hobby1 for {mbtiType}: {_hobby1}");
-                    }
-                    if (snapshot.HasChild("Hobby2")) {
-                        _hobby2 = snapshot.Child("Hobby2").Value.ToString();
-                        DebugLog($"Hobby2 for {mbtiType}: {_hobby2}");
-                    }
-                    if (snapshot.HasChild("Hobby3")) {
-                        _hobby3 = snapshot.Child("Hobby3").Value.ToString();
-                        DebugLog($"Hobby3 for {mbtiType}: {_hobby3}");
-                    }
-                } else {
-                    DebugLog($"No data found for MBTI type: {mbtiType}");
-                }
-            }
-        });
-    }
+        DataSnapshot snapshot = await reference.GetValueAsync().AsUniTask();
 
-    // 모든 MBTI 질문 리스트 불러오기
-    public void FetchAllQuestionsIInfo()
-    {
-        for(int i = 1; i <= 40; i++)
+        if (snapshot.Exists)
         {
-            string _question = i.ToString();
-            FetchQuestionsInfo(_question); // 리스트 i 번째의 데이터를 불러오기
+            if (snapshot.HasChild("Detail"))
+            {
+                _detail = snapshot.Child("Detail").Value.ToString();
+                DebugLog($"Detail for {mbtiType}: {_detail}");
+            }
+            if (snapshot.HasChild("Hobby1"))
+            {
+                _hobby1 = snapshot.Child("Hobby1").Value.ToString();
+                DebugLog($"Hobby1 for {mbtiType}: {_hobby1}");
+            }
+            if (snapshot.HasChild("Hobby2"))
+            {
+                _hobby2 = snapshot.Child("Hobby2").Value.ToString();
+                DebugLog($"Hobby2 for {mbtiType}: {_hobby2}");
+            }
+            if (snapshot.HasChild("Hobby3"))
+            {
+                _hobby3 = snapshot.Child("Hobby3").Value.ToString();
+                DebugLog($"Hobby3 for {mbtiType}: {_hobby3}");
+            }
+        }
+        else
+        {
+            DebugLog($"No data found for MBTI type: {mbtiType}");
         }
     }
 
+    // 모든 MBTI 질문 리스트 불러오기
+    private async UniTask FetchAllQuestionsIInfo()
+    {
+        List<UniTask> fetchTasks = new List<UniTask>();
+        for (int i = 1; i <= 36; i++)
+        {
+            string _question = i.ToString();
+            fetchTasks.Add(FetchQuestionsInfo(_question)); // 리스트 i 번째의 데이터를 불러오기
+        }
+        await UniTask.WhenAll(fetchTasks);
+
+        isTestInfoFetchCompleted = true;
+    }
+
     // MBTI 번호에 따른 각 Q/A 불러오기
-    public void FetchQuestionsInfo(string _question)
+    private async UniTask FetchQuestionsInfo(string _question)
     {
         if (string.IsNullOrEmpty(_question))
         {
@@ -173,65 +181,53 @@ public class FirebaseReadingManager : MonoBehaviour
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("Questions").Child(_question);
 
         DebugLog("Fetching data...");
-        reference.GetValueAsync().ContinueWithOnMainThread(task => {
-            if (task.IsFaulted)
-            {
-                // AggregateException을 평탄화하여 각각의 예외를 처리
-                foreach (Exception ex in task.Exception.Flatten().InnerExceptions)
-                {
-                    Debug.Log($"Exception caught: {ex.Message}");
-                    Debug.Log(task.Exception.ToString());
-                }
-            }
-            else if (task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-                if (snapshot.Exists)
-                {
-                    string _questionData;
-                    int temp = (int.Parse(_question));
-                    // "question" 데이터 읽기
-                    if (snapshot.HasChild("question"))
-                    {
-                        _questionData = snapshot.Child("question").Value.ToString();
-                        DebugLog($"Question for {_question}: {_questionData}");
-                        TestResult.Instance._questionStrings[temp-1] = _questionData;
-                    }
+        DataSnapshot snapshot = await reference.GetValueAsync().AsUniTask();
 
-                    // "answer" 데이터 읽기
-                    if (snapshot.HasChild("answer"))
-                    {
-                        DataSnapshot answerSnapShot = snapshot.Child("answer");
-                        if (answerSnapShot.HasChild("a"))
-                        {
-                            string answerA = answerSnapShot.Child("a").Value.ToString();
-                            Debug.Log($"Answer A for (_list): {answerA}");
-                            TestResult.Instance._answerString1[temp-1] = answerA;
-                        }
-                        if (answerSnapShot.HasChild("b"))
-                        {
-                            string answerB= answerSnapShot.Child("b").Value.ToString();
-                            Debug.Log($"Answer A for (_list): {answerB}");
-                            TestResult.Instance._answerString2[temp-1] = answerB;
-                        }
-                        /*if (answerSnapShot.HasChild("re1"))
-                        {
-                            string typeRe1 = answerSnapShot.Child("re1").Value.ToString();
-                            Debug.Log($"Answer re1 for (_list): {typeRe1}");
-                        }
-                        if (answerSnapShot.HasChild("re2"))
-                        {
-                            string typeRe2 = answerSnapShot.Child("re2").Value.ToString();
-                            Debug.Log($"Answer re2 for (_list): {typeRe2}");
-                        }*/
-                    }
-                }
-                else
+        if (snapshot.Exists)
+        {
+            string questionData;
+            int temp = int.Parse(_question);
+            if (snapshot.HasChild("question"))
+            {
+                questionData = snapshot.Child("question").Value.ToString();
+                DebugLog($"Question for {_question}: {questionData}");
+                // Null 체크 추가
+                if (TestResult.Instance._questionStrings == null)
                 {
-                    DebugLog($"No data found for question: {_question}");
+                    DebugLog($"{_question}: TestResult.Instance._questionStrings is null");
+                    return;
+                }
+                TestResult.Instance._questionStrings[temp - 1] = questionData;
+            }
+
+            if (snapshot.HasChild("answer"))
+            {
+                // Null 체크 추가
+                if (TestResult.Instance._answerString1 == null || TestResult.Instance._answerString2 == null)
+                {
+                    DebugLog("TestResult.Instance._answerString1 or _answerString2 is null");
+                    return;
+                }
+
+                DataSnapshot answerSnapShot = snapshot.Child("answer");
+                if (answerSnapShot.HasChild("a"))
+                {
+                    string answerA = answerSnapShot.Child("a").Value.ToString();
+                    Debug.Log($"Answer A for (_list): {answerA}");
+                    TestResult.Instance._answerString1[temp - 1] = answerA;
+                }
+                if (answerSnapShot.HasChild("b"))
+                {
+                    string answerB = answerSnapShot.Child("b").Value.ToString();
+                    Debug.Log($"Answer B for (_list): {answerB}");
+                    TestResult.Instance._answerString2[temp - 1] = answerB;
                 }
             }
-        });
+        }
+        else
+        {
+            DebugLog($"No data found for question: {_question}");
+        }
     }
 
     public string GetDetail()
