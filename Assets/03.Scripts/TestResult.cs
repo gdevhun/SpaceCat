@@ -74,7 +74,7 @@ public class TestResult : MonoBehaviour
         {  
            //40개의 질문에 대한 대답 끝
            fireWriteManager.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
-           SceneConMananger.Instance.MoveScene("MainScene");
+           SceneConMananger.Instance.MoveScene("04.MainScene");
            //MBTI 결과 씬 이동 결과지 보여주기.
         }
     }
@@ -168,15 +168,14 @@ public class TestResult : MonoBehaviour
             _isTestOver = true;
             return;
         }
+            
         //각각 보이는 질문 답 UI 업데이트
         questionText.text = _questionStrings[_curQuestionIndex-1];
         playerSelection1.text = _answerString1[_curQuestionIndex-1];
         playerSelection2.text = _answerString2[_curQuestionIndex-1];
         curQuestionNumber.text= $" {_curQuestionIndex} / 40";
         imageBar.fillAmount = (float)_curQuestionIndex / 40f;
-        Debug.Log(questionText.text+"!!!!");
-        Debug.Log(playerSelection1.text+"!!!!");
-        Debug.Log(playerSelection2.text+"!!!!");
+
     }
 }
 
