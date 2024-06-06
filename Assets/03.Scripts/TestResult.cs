@@ -103,7 +103,7 @@ public class TestResult : MonoBehaviour
         secondMBTI = s_num > n_num ? "S" : "N";
         thirdMBTI = t_num > f_num ? "T" : "F";
         fourthMBTI = p_num > j_num ? "P" : "J";
-        finalResult = fourthMBTI + secondMBTI + thirdMBTI + fourthMBTI;
+        finalResult = firstMBTI + secondMBTI + thirdMBTI + fourthMBTI;
         Debug.Log(fourthMBTI);
         return finalResult;
     }
