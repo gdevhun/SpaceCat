@@ -4,6 +4,7 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Auth;
 using TMPro;
+using System;
 
 public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
 {
@@ -14,6 +15,12 @@ public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
     [Space]
     [Header("MBTI")]
     public TMP_InputField _mbtiInputField;
+
+    internal void FetchCurrentUserMBTI(Action<string> updateMBTIInfo)
+    {
+        throw new NotImplementedException();
+    }
+
     private DatabaseReference _databaseReference;
 
     public string CurrentUserMBTI { get; internal set; }
