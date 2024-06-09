@@ -172,7 +172,7 @@ public class TestResult : MonoBehaviour
         if (_curQuestionIndex == 37)
         {   //만약 41번째라면 , 검사가 끝났다면
             _isTestOver = true;
-            SoundManager.Instance.moveSfx.GetComponent<AudioSource>().Play();
+            SoundManager.Instance.moveSfx.Play();
             return;
         }
             
