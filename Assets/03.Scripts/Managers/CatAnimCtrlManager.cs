@@ -14,7 +14,6 @@ public class CatAnimCtrlManager : MonoBehaviour
         isHit,
         isGravitation
     }
-    
     public Animator catAnimator;
     void Start()
     {
