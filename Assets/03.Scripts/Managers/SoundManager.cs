@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    public GameObject moveSfx;
+    public AudioSource moveSfx;
     
 }
