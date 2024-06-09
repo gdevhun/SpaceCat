@@ -1321,6 +1321,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3158487433479822749}
+        m_TargetAssemblyTypeName: CatAnimCtrlManager, Assembly-CSharp
+        m_MethodName: PlayCatAnimJoy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1207749258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1438,7 +1450,7 @@ GameObject:
   - component: {fileID: 1388732047}
   - component: {fileID: 1388732046}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: SceneCtrlManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1722,6 +1734,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1114453798}
         m_TargetAssemblyTypeName: TestResult, Assembly-CSharp
         m_MethodName: OnPlayerSelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3158487433479822749}
+        m_TargetAssemblyTypeName: CatAnimCtrlManager, Assembly-CSharp
+        m_MethodName: PlayCatAnimJump
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2490,6 +2514,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2089daadaf832f489da58c30759061e, type: 3}
+--- !u!114 &3158487433479822749 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4396124443635367493, guid: f2089daadaf832f489da58c30759061e, type: 3}
+  m_PrefabInstance: {fileID: 3158487433479822748}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1789f2b4da024584b80e9565d2c5daac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5581696671992023296 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6370289594428183375, guid: f2089daadaf832f489da58c30759061e, type: 3}
