@@ -78,7 +78,7 @@ public class TestResult : MonoBehaviour
         {  
            //40개의 질문에 대한 대답 끝
            fireWriteManager.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
-           SceneConMananger.Instance.MoveScene("04.MainScene");
+           SceneCtrlMananger.Instance.MoveScene("04.MainScene");
            //MBTI 결과 씬 이동 결과지 보여주기.
         }
     }
