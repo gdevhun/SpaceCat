@@ -1283,8 +1283,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5497070674277760865}
   - component: {fileID: 5554359614113857961}
+  - component: {fileID: 5554359614113857962}
   m_Layer: 5
-  m_Name: Cat_Felix_root
+  m_Name: Cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3473,6 +3474,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5554359614113857962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5494535010187520519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1789f2b4da024584b80e9565d2c5daac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &5670600160721721067
 SpriteRenderer:
   m_ObjectHideFlags: 0
