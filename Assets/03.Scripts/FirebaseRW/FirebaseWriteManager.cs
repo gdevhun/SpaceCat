@@ -14,7 +14,9 @@ public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
     [Space]
     [Header("MBTI")]
     public TMP_InputField _mbtiInputField;
-    private DatabaseReference _databaseReference;       
+    private DatabaseReference _databaseReference;
+
+    public string CurrentUserMBTI { get; internal set; }
 
     void Start()
     {       
