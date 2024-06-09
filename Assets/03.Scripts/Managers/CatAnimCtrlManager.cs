@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CatAnimController : Singleton<CatAnimController>
+public class CatAnimCtrlManager : Singleton<CatAnimCtrlManager>
 {
     public enum CatAnimType
     {
@@ -22,6 +22,7 @@ public class CatAnimController : Singleton<CatAnimController>
 
     public void PlayCatAnimation(CatAnimType catAnimType)
     {
+        
         catAnimator.SetTrigger(catAnimType.ToString());
     }
     /*

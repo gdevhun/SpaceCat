@@ -123,7 +123,7 @@ public class UIManagerAuth : Singleton<UIManagerAuth>
 
     public void MoveScene(string nextScene)
     {
-        SceneConMananger.Instance.MoveScene(nextScene);
+        SceneCtrlMananger.Instance.MoveScene(nextScene);
     }
 
 }
