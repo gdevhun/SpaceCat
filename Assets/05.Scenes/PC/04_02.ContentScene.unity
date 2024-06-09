@@ -998,7 +998,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 256794908}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 668432796}
+        m_TargetAssemblyTypeName: CatAnimCtrlManager, Assembly-CSharp
+        m_MethodName: PlayCatAnimJoy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &256794908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2019,7 +2031,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 510597269}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 736710622}
+        m_TargetAssemblyTypeName: CatAnimCtrlManager, Assembly-CSharp
+        m_MethodName: PlayCatAnimGravitation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &510597269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2461,6 +2485,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6370289594428183375, guid: f2089daadaf832f489da58c30759061e, type: 3}
   m_PrefabInstance: {fileID: 668432794}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &668432796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4396124443635367493, guid: f2089daadaf832f489da58c30759061e, type: 3}
+  m_PrefabInstance: {fileID: 668432794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1789f2b4da024584b80e9565d2c5daac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &686145799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,6 +2809,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5614332854266808615, guid: b1c0a39ab30eba44997a29d3313e9a3f, type: 3}
   m_PrefabInstance: {fileID: 736710620}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &736710622 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4897898927660078518, guid: b1c0a39ab30eba44997a29d3313e9a3f, type: 3}
+  m_PrefabInstance: {fileID: 736710620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1789f2b4da024584b80e9565d2c5daac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &768698474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3141,7 +3187,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 931129775}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 668432796}
+        m_TargetAssemblyTypeName: CatAnimCtrlManager, Assembly-CSharp
+        m_MethodName: PlayCatAnimJoy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &931129775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4497,7 +4555,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1343290646}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 736710622}
+        m_TargetAssemblyTypeName: CatAnimCtrlManager, Assembly-CSharp
+        m_MethodName: PlayCatAnimGravitation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1343290646
 MonoBehaviour:
   m_ObjectHideFlags: 0
