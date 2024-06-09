@@ -12,8 +12,7 @@ using TMPro;
 
 public class FirebaseReadingManager : Singleton<FirebaseWriteManager>
 {
-    
-     [Header("Firebase")]
+    [Header("Firebase")]
     // Firebase 종속성 상태 변수
     public DependencyStatus dependencyStatus;    
     //[Space]
@@ -31,8 +30,6 @@ public class FirebaseReadingManager : Singleton<FirebaseWriteManager>
     private string _hobby1;
     private string _hobby2;
     private string _hobby3;
-    // 사용자 MBTI 
-    public string CurrentUserMBTI { get; internal set; } 
     //질문 변수
     private string _question;
     //현재 로그인된 사용자
@@ -81,14 +78,13 @@ public class FirebaseReadingManager : Singleton<FirebaseWriteManager>
                 DataSnapshot snapshot = task.Result;
                 if (snapshot.Exists)
                 {
-                    CurrentUserMBTI = snapshot.Value.ToString();
-                    InitializeFirebaseDB(CurrentUserMBTI);
+                    string currentUserMBTI = snapshot.Value.ToString();
+                    InitializeFirebaseDB(currentUserMBTI);
                 }
                 else
                 {
                     DebugLog("No MBTI found for current user.");
                     InitializeFirebaseDB("N/A");
-                    CurrentUserMBTI = "N/A";
                 }
             }
         });

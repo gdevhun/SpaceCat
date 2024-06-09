@@ -1400,7 +1400,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "MBTI \uD2B9\uC131"
+  m_text: "istj\uB294 \uC785\uB2C8\uB2E4~~ istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294
+    \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294
+    \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294
+    \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294
+    \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294
+    \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294
+    \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294
+    \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294
+    \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~istj\uB294 \uC785\uB2C8\uB2E4~~"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 956a4c4f26c760c4db1d2cfef0119910, type: 2}
   m_sharedMaterial: {fileID: 2764020433065311155, guid: 956a4c4f26c760c4db1d2cfef0119910, type: 2}
@@ -1489,7 +1497,7 @@ GameObject:
   - component: {fileID: 1185849025}
   - component: {fileID: 1185849024}
   m_Layer: 5
-  m_Name: CharacteristicInfo
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1706,7 +1714,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1388732047}
   - component: {fileID: 1388732046}
-  - component: {fileID: 1388732048}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -1741,20 +1748,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1388732048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388732045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c79bf3cd105e9c4fae2bef8a78aad8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  user_MBTI: {fileID: 637046606}
-  characteristic: {fileID: 1127164152}
 --- !u!1 &1709226817
 GameObject:
   m_ObjectHideFlags: 0
