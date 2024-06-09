@@ -13,7 +13,7 @@ public class TestResult : MonoBehaviour
     public static TestResult Instance;
     public GameObject fireWriteManager;
     public GameObject fireReadingManager;
-
+    
     public GameObject firstAnswerBtn;
     public GameObject secondAnswerBtn;
 
@@ -172,6 +172,7 @@ public class TestResult : MonoBehaviour
         if (_curQuestionIndex == 37)
         {   //만약 41번째라면 , 검사가 끝났다면
             _isTestOver = true;
+            SoundManager.Instance.moveSfx.GetComponent<AudioSource>().Play();
             return;
         }
             
