@@ -1,18 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ContentScene : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public TextMeshProUGUI mbtiText;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        mbtiText.text = TestResult.Instance.ShowResult();
     }
 }
