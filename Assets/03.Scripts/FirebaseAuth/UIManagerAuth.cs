@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class UIManagerAuth : SingletonBehaviour<UIManagerAuth>
+public class UIManagerAuth : Singleton<UIManagerAuth>
 {
     [Header("Panel")]
     [SerializeField] private GameObject loginPanel;
@@ -121,9 +121,9 @@ public class UIManagerAuth : SingletonBehaviour<UIManagerAuth>
         errorPanel.SetActive(false);
     }
 
-    public void MoveScene(string nextScene)
-    {
-        SceneCtrlMananger.Instance.MoveScene(nextScene);
-    }
+    //public void MoveScene(string nextScene)
+    //{
+    //    SceneCtrlMananger.Instance.MoveScene(nextScene);
+    //}
 
 }

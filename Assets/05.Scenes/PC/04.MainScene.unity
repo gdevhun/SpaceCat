@@ -251,6 +251,52 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &124718504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 124718506}
+  - component: {fileID: 124718505}
+  m_Layer: 0
+  m_Name: MBTI Info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &124718505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124718504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c79bf3cd105e9c4fae2bef8a78aad8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user_MBTI: {fileID: 637046606}
+  characteristic: {fileID: 1127164152}
+--- !u!4 &124718506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124718504}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.7409088, y: -0.78997636, z: 10.868587}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &145117821
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +443,7 @@ GameObject:
   - component: {fileID: 234528706}
   - component: {fileID: 234528705}
   m_Layer: 5
-  m_Name: Chat
+  m_Name: Chat Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -416,7 +462,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 434654815}
-  m_Father: {fileID: 731849766}
+  m_Father: {fileID: 1740742513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -473,7 +519,7 @@ GameObject:
   - component: {fileID: 286192135}
   - component: {fileID: 286192134}
   m_Layer: 5
-  m_Name: Chat (1)
+  m_Name: Recommend Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -492,7 +538,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 727455490}
-  m_Father: {fileID: 731849766}
+  m_Father: {fileID: 1740742513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1865,7 +1911,7 @@ GameObject:
   - component: {fileID: 727455492}
   - component: {fileID: 727455491}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2030,8 +2076,6 @@ RectTransform:
   - {fileID: 1831849323}
   - {fileID: 1709226818}
   - {fileID: 1225853408}
-  - {fileID: 234528704}
-  - {fileID: 286192133}
   m_Father: {fileID: 1740742513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2596,7 +2640,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1388732047}
   - component: {fileID: 1388732046}
-  - component: {fileID: 1388732048}
   m_Layer: 0
   m_Name: SceneCtrlManager
   m_TagString: Untagged
@@ -2631,20 +2674,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1388732048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388732045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c79bf3cd105e9c4fae2bef8a78aad8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  user_MBTI: {fileID: 637046606}
-  characteristic: {fileID: 1127164152}
 --- !u!1 &1709226817
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,9 +2845,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 731849766}
-  - {fileID: 536847446}
   - {fileID: 1865089296}
+  - {fileID: 731849766}
+  - {fileID: 234528704}
+  - {fileID: 286192133}
+  - {fileID: 536847446}
   - {fileID: 1185849023}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3045,7 +3076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6370289594428183375, guid: f2089daadaf832f489da58c30759061e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -62.000004
+      value: -62
       objectReference: {fileID: 0}
     - target: {fileID: 6370289594428183375, guid: f2089daadaf832f489da58c30759061e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3095,7 +3126,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1740742513}
-  - {fileID: 1261086155}
   - {fileID: 627116300}
   - {fileID: 1388732047}
   - {fileID: 1054682957}
+  - {fileID: 124718506}
+  - {fileID: 1261086155}

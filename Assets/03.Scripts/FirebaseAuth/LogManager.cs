@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LogManager : SingletonBehaviour<LogManager>
+public class LogManager : Singleton<LogManager>
 {
 
     [SerializeField]

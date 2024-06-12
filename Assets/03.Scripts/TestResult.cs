@@ -10,10 +10,13 @@ using UnityEngine.UI;
 
 public class TestResult : MonoBehaviour
 {
+    public SceneCtrlMananger sceneCtrlManager;
+    public SoundManager soundManager;
     public static TestResult Instance;
-    public GameObject fireWriteManager;
-    public GameObject fireReadingManager;
-    
+    //public GameObject fireWriteManager;
+    //public GameObject fireReadingManager;
+    public bool isInfoFetchCompleted = false;
+
     public GameObject firstAnswerBtn;
     public GameObject secondAnswerBtn;
 
@@ -67,8 +70,8 @@ public class TestResult : MonoBehaviour
     {
         // fireReadingManager의 FirebaseReadingManager 컴포넌트가 준비될 때까지 대기
         yield return new WaitUntil(() =>
-            fireReadingManager.GetComponent<FirebaseReadingManager>().isTestInfoFetchCompleted);
-        
+            //FirebaseReadingManager.Instance.isTestInfoFetchCompleted == true);
+            isInfoFetchCompleted == true);
         // 조건이 충족되면 UI를 업데이트
         UpdateTextUI();
     }
@@ -77,8 +80,9 @@ public class TestResult : MonoBehaviour
         if (_isTestOver)
         {  
            //40개의 질문에 대한 대답 끝
-           fireWriteManager.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
-           SceneCtrlMananger.Instance.MoveScene("04.MainScene");
+           FirebaseWriteManager.Instance.SaveMBTI(TestResult.Instance.ShowResult());
+           //FirebaseWriteManager.Instance.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
+            sceneCtrlManager.MoveScene("04.MainScene");
            //MBTI 결과 씬 이동 결과지 보여주기.
         }
     }
@@ -167,12 +171,13 @@ public class TestResult : MonoBehaviour
  
     private void UpdateTextUI()
     {
+        Debug.Log("UpdateTextUI");
         _curQuestionIndex++;  //질문 인덱스 1증가 
         
         if (_curQuestionIndex == 37)
         {   //만약 41번째라면 , 검사가 끝났다면
             _isTestOver = true;
-            SoundManager.Instance.moveSfx.Play();
+            soundManager.moveSfx.Play();
             return;
         }
             

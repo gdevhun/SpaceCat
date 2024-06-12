@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 using TMPro;
 
@@ -15,8 +16,8 @@ public class MBTIInfo : MonoBehaviour
         if (!string.IsNullOrEmpty(userMBTI))
         {
             string mbtiData = GetMBTIData(userMBTI);
+            user_MBTI.text = "당신은 " + userMBTI + " 입니다";
             characteristic.text = mbtiData;
-            user_MBTI.text = "당신은 " + mbtiData + " 입니다";
         }
         else
         {
@@ -27,8 +28,11 @@ public class MBTIInfo : MonoBehaviour
 
     private string GetMBTIData(string userMBTI)
     {
+        Debug.Log("userMBTI: " + userMBTI);
         TextAsset jsonFile = Resources.Load<TextAsset>("MBTI_Dataset");
-        Dictionary<string, string> mbtiDictionary = JsonUtility.FromJson<Dictionary<string, string>>(jsonFile.text);
+        if (jsonFile != null) Debug.Log("MBTI_Dataset 불러오기 완료");
+        Dictionary<string, string> mbtiDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonFile.text);
+        //Dictionary<string, string> mbtiDictionary = JsonUtility.FromJson<Dictionary<string, string>>(jsonFile.text);
         if (mbtiDictionary.ContainsKey(userMBTI))
         {
             return mbtiDictionary[userMBTI];

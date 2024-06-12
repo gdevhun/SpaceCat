@@ -2,40 +2,78 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    public static T Instance { get; private set; } = null;
+    private static T _instance;
+    private static readonly object _lock = new object();
+    private static bool _isInitialized = false;
+    private static bool _applicationIsQuitting = false;
 
-    /// <summary>
-    /// 싱글톤 상속 후 Awake() 작성 시 반드시 제일 처음에 base.Awake()를 실행해 주어야 함.
-    /// </summary>
+    public static T Instance
+    {
+        get
+        {
+            if (_applicationIsQuitting)
+            {
+                return null;
+            }
+
+            if (_instance == null)
+            {
+                if (!_isInitialized)
+                {
+                    CreateInstance();
+                }
+            }
+            return _instance;
+        }
+    }
+
+    private static void CreateInstance()
+    {
+        lock (_lock)
+        {
+            if (_instance == null && !_isInitialized && !_applicationIsQuitting)
+            {
+                _instance = FindObjectOfType<T>();
+
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject();
+                    _instance = singletonObject.AddComponent<T>();
+                    singletonObject.name = typeof(T).ToString() + " (Singleton)";
+                    DontDestroyOnLoad(singletonObject);
+                }
+
+                _isInitialized = true;
+            }
+        }
+    }
+
     protected virtual void Awake()
     {
-        if (Instance == null)
+        if (_instance == null)
         {
-            Instance = this as T;
-            DontDestroyOnLoad(Instance);
+            _instance = this as T;
+            DontDestroyOnLoad(this.gameObject);
         }
-        else if (Instance != this)
+        else if (_instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
-    /// <summary>
-    /// 싱글톤 상속 후 OnDestroy() 작성 시 반드시 제일 처음에 base.OnDestroy()를 실행해 주어야 함.
-    /// </summary>
     protected virtual void OnDestroy()
     {
-        if (Instance == this)
+        if (_instance == this)
         {
-            Instance = null;
+            _instance = null;
+            _isInitialized = false;
         }
     }
-}
 
-public abstract class Singleton<T> where T : new()
-{
-    private static T s_instance;
-    public static T Instance => s_instance ??= new T();
+    private void OnApplicationQuit()
+    {
+        _applicationIsQuitting = true;
+    }
 }
