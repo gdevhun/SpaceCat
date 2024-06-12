@@ -5419,8 +5419,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1093861925}
-        m_TargetAssemblyTypeName: UIManagerAuth, Assembly-CSharp
+      - m_Target: {fileID: 1508240322}
+        m_TargetAssemblyTypeName: SceneCtrlMananger, Assembly-CSharp
         m_MethodName: MoveScene
         m_Mode: 5
         m_Arguments:
@@ -8397,6 +8397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd7ddde539f00442b601c7457cd4e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSfx: {fileID: 0}
 --- !u!4 &1019127657
 Transform:
   m_ObjectHideFlags: 0
@@ -11847,6 +11848,50 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1508240321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1508240323}
+  - component: {fileID: 1508240322}
+  m_Layer: 0
+  m_Name: SceneCtrlManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1508240322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508240321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c68cab6ad616d49b595e0c89e9a9e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1508240323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508240321}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1508346782
 GameObject:
   m_ObjectHideFlags: 0
@@ -13851,12 +13896,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f43061e80b730946bb18db0171ae090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginButton: {fileID: 1150489047}
-  userIdText: {fileID: 0}
-  userNameText: {fileID: 1414283238}
-  loginPanel: {fileID: 264327966}
-  userPanel: {fileID: 93851451}
-  loginController: {fileID: 0}
 --- !u!1 &1851587377
 GameObject:
   m_ObjectHideFlags: 0
@@ -15967,3 +16006,4 @@ SceneRoots:
   - {fileID: 1829971117}
   - {fileID: 1664881614}
   - {fileID: 1019127657}
+  - {fileID: 1508240323}

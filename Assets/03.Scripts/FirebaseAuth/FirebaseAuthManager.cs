@@ -11,7 +11,7 @@ using Firebase.Database;
 using System.Threading.Tasks;  // Necessary for using Task-based asynchronous programming
 using TMPro;
 
-public class FirebaseAuthManager : SingletonBehaviour<FirebaseAuthManager>
+public class FirebaseAuthManager : Singleton<FirebaseAuthManager>
 {
     // Firebase variables and references
     [Header("Firebase")]
