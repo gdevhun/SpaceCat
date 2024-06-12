@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SceneCtrlMananger : Singleton<SceneCtrlMananger>
+public class SceneCtrlMananger : SingletonBehaviour<SceneCtrlMananger>
 {
    
     //01.IntroScene

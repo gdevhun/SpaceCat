@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class UIManagerAuth : Singleton<UIManagerAuth>
+public class UIManagerAuth : SingletonBehaviour<UIManagerAuth>
 {
     [Header("Panel")]
     [SerializeField] private GameObject loginPanel;

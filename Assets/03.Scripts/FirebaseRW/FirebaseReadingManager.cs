@@ -10,7 +10,7 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using TMPro;
 
-public class FirebaseReadingManager : Singleton<FirebaseWriteManager>
+public class FirebaseReadingManager : SingletonBehaviour<FirebaseReadingManager>
 {
     
      [Header("Firebase")]

@@ -1,33 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
-{
-    private static T instance;
 
-    public static T Instance
+public abstract class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+{
+    public static T Instance { get; private set; } = null;
+
+    /// <summary>
+    /// 싱글톤 상속 후 Awake() 작성 시 반드시 제일 처음에 base.Awake()를 실행해 주어야 함.
+    /// </summary>
+    protected virtual void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if(instance == null)
-            {
-                instance=(T)FindObjectOfType(typeof(T));
-                if (instance == null)
-                {
-                    GameObject obj=new GameObject(typeof(T).Name,typeof(T));
-                    instance = obj.AddComponent<T>();
-                }
-            }
-            return instance;
+            Instance = this as T;
+            DontDestroyOnLoad(Instance);
+        }
+        else if (Instance != this)
+        {
+            Destroy(this);
         }
     }
-    private void Awake()
+
+    /// <summary>
+    /// 싱글톤 상속 후 OnDestroy() 작성 시 반드시 제일 처음에 base.OnDestroy()를 실행해 주어야 함.
+    /// </summary>
+    protected virtual void OnDestroy()
     {
-        if(transform.parent != null && transform.root != null)
-        {   //Managers 오브젝트안에 각각 싱글톤메니저들을 넣는 경우 예외처리를 위한 구문
-            DontDestroyOnLoad(this.transform.root.gameObject);
-        }
-        else
+        if (Instance == this)
         {
-            DontDestroyOnLoad(this.gameObject);
+            Instance = null;
         }
     }
+}
+
+public abstract class Singleton<T> where T : new()
+{
+    private static T s_instance;
+    public static T Instance => s_instance ??= new T();
 }
