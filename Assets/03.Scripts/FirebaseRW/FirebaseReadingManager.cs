@@ -10,7 +10,7 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using TMPro;
 
-public class FirebaseReadingManager : SingletonBehaviour<FirebaseReadingManager>
+public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
 {
     
      [Header("Firebase")]
@@ -98,7 +98,7 @@ public class FirebaseReadingManager : SingletonBehaviour<FirebaseReadingManager>
     {
         await FetchAllQuestionsIInfo();              // 모든 MBTI 질문 리스트 불러오기
         await FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
-        _isFirebaseInitialized = true;
+        TestResult.Instance.isInfoFetchCompleted = true;
     }    
 
     // 출력 로그 관리
@@ -201,6 +201,7 @@ public class FirebaseReadingManager : SingletonBehaviour<FirebaseReadingManager>
                     DebugLog($"{_question}: TestResult.Instance._questionStrings is null");
                     return;
                 }
+                DebugLog($"{_question}: TestResult.Instance._questionStrings is not null");
                 TestResult.Instance._questionStrings[temp - 1] = questionData;
             }
 
