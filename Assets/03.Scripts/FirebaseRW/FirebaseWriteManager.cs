@@ -6,7 +6,7 @@ using Firebase.Auth;
 using TMPro;
 using System;
 
-public class FirebaseWriteManager : SingletonBehaviour<FirebaseWriteManager>
+public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
 {
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
