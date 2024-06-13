@@ -22,5 +22,16 @@ public class SceneCtrlMananger : MonoBehaviour
         SceneManager.LoadScene(sceneName);
         Debug.Log("Scene Changed!");
     }
+    
+    // 처음 씬에서 끌고오는 Soundmanager 싱글톤 버튼 캐싱을 위한 호출 함수   
+    #region 
+    public void PlaySceneSfx1() => SoundManager.Instance.PlaySceneSfx1();
+    public void PlaySceneSfx2() => SoundManager.Instance.PlaySceneSfx2();
+    public void PlayBtnSfx1() => SoundManager.Instance.PlayBtnSfx1();
+    public void PlayBtnSfx2() => SoundManager.Instance.PlayBtnSfx2();
+    public void PlayTypingSfx() => SoundManager.Instance.PlayTypingSfx();
+
+    #endregion
+  
 }
 
