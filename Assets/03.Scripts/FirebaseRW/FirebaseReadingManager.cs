@@ -19,7 +19,8 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
     //[Space]
     //[Header("MBTI Type")]
     //public TMP_InputField MBTI_Field;
-    public bool isTestInfoFetchCompleted = false;
+    [SerializeField]
+    private bool isTestInfoFetchCompleted = false;
     protected bool _isFirebaseInitialized = false;
     private string _logText = "";
     //로그 저장 크기
@@ -98,7 +99,7 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
     {
         await FetchAllQuestionsIInfo();              // 모든 MBTI 질문 리스트 불러오기
         await FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
-        TestResult.Instance.isInfoFetchCompleted = true;
+        TestScene.Instance.isInfoFetchCompleted = true;
     }    
 
     // 출력 로그 관리
@@ -196,21 +197,21 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                 questionData = snapshot.Child("question").Value.ToString();
                 DebugLog($"Question for {_question}: {questionData}");
                 // Null 체크 추가
-                if (TestResult.Instance._questionStrings == null)
+                if (TestScene.Instance._questionStrings == null)
                 {
-                    DebugLog($"{_question}: TestResult.Instance._questionStrings is null");
+                    DebugLog($"{_question}: TestScene.Instance._questionStrings is null");
                     return;
                 }
-                DebugLog($"{_question}: TestResult.Instance._questionStrings is not null");
-                TestResult.Instance._questionStrings[temp - 1] = questionData;
+                DebugLog($"{_question}: TestScene.Instance._questionStrings is not null");
+                TestScene.Instance._questionStrings[temp - 1] = questionData;
             }
 
             if (snapshot.HasChild("answer"))
             {
                 // Null 체크 추가
-                if (TestResult.Instance._answerString1 == null || TestResult.Instance._answerString2 == null)
+                if (TestScene.Instance._answerString1 == null || TestScene.Instance._answerString2 == null)
                 {
-                    DebugLog("TestResult.Instance._answerString1 or _answerString2 is null");
+                    DebugLog("TestScene.Instance._answerString1 or _answerString2 is null");
                     return;
                 }
 
@@ -219,13 +220,13 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                 {
                     string answerA = answerSnapShot.Child("a").Value.ToString();
                     Debug.Log($"Answer A for (_list): {answerA}");
-                    TestResult.Instance._answerString1[temp - 1] = answerA;
+                    TestScene.Instance._answerString1[temp - 1] = answerA;
                 }
                 if (answerSnapShot.HasChild("b"))
                 {
                     string answerB = answerSnapShot.Child("b").Value.ToString();
                     Debug.Log($"Answer B for (_list): {answerB}");
-                    TestResult.Instance._answerString2[temp - 1] = answerB;
+                    TestScene.Instance._answerString2[temp - 1] = answerB;
                 }
             }
         }
