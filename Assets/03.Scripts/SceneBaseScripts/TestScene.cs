@@ -13,9 +13,6 @@ public class TestScene : MonoBehaviour
     public SceneCtrlMananger sceneCtrlManager;
     public AudioSource gaugeSfx;
     public static TestScene Instance;
-    //public GameObject fireWriteManager;
-    //public GameObject fireReadingManager;
-    public bool isInfoFetchCompleted = false;
 
     public GameObject firstAnswerBtn;
     public GameObject secondAnswerBtn;
@@ -50,39 +47,16 @@ public class TestScene : MonoBehaviour
         _curQuestionIndex = 0;
     }
    
-    /*private void Start()
-    {
-        WaitFetchTime().Forget();
-    }
-
-    private async UniTaskVoid WaitFetchTime()
-    {
-        await UniTask.WaitUntil(()=> 
-            fireReadingManager.GetComponent<FirebaseReadingManager>().isTestInfoFetchCompleted);
-        UpdateTextUI();
-    }*/
     private void Start()
     {
         UpdateTextUI();
-        //StartCoroutine(WaitFetchTime());
     }
-
-    //private IEnumerator WaitFetchTime()
-    //{
-    //    // fireReadingManager의 FirebaseReadingManager 컴포넌트가 준비될 때까지 대기
-    //    yield return new WaitUntil(() =>
-    //        //FirebaseReadingManager.Instance.isTestInfoFetchCompleted == true);
-    //        isInfoFetchCompleted == true);
-    //    // 조건이 충족되면 UI를 업데이트
-    //    UpdateTextUI();
-    //}
     private void Update()
     {
         if (_isTestOver)
         {  
            //40개의 질문에 대한 대답 끝
            FirebaseWriteManager.Instance.SaveMBTI(ShowResult());
-           //FirebaseWriteManager.Instance.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
             sceneCtrlManager.MoveScene("04.MainScene"); 
            //MBTI 결과 씬 이동 결과지 보여주기.
         }
@@ -192,7 +166,6 @@ public class TestScene : MonoBehaviour
         playerSelection2.text = QALists.Instance._answerString2[_curQuestionIndex-1];
         curQuestionNumber.text= $" {_curQuestionIndex} / 36";
         imageBar.fillAmount = (float)_curQuestionIndex / 36f;
-
     }
 }
 
