@@ -26,30 +26,24 @@ public class CatAnimCtrlManager : MonoBehaviour
         catAnimator.SetTrigger(catAnimType.ToString());
     }*/
     
-    public void PlayCatAnimRun()
-    {
+    public void PlayCatAnimRun()=>
         catAnimator.SetTrigger(CatAnimType.isRun.ToString());
-    }
-    public void PlayCatAnimDead()
-    {
+
+    public void PlayCatAnimDead()=>
         catAnimator.SetTrigger(CatAnimType.isDead.ToString());
-    }
-    public void PlayCatAnimJump()
-    {
+ 
+    public void PlayCatAnimJump()=>
         catAnimator.SetTrigger(CatAnimType.isJump.ToString());
-    }
-    public void PlayCatAnimJoy()
-    {
+   
+    public void PlayCatAnimJoy()=>
         catAnimator.SetTrigger(CatAnimType.isJoy.ToString());
-    }
-    public void PlayCatAnimHit()
-    {
+  
+    public void PlayCatAnimHit()=>
         catAnimator.SetTrigger(CatAnimType.isHit.ToString());
-    }
-    public void PlayCatAnimGravitation()
-    {
+ 
+    public void PlayCatAnimGravitation()=>
         catAnimator.SetTrigger(CatAnimType.isGravitation.ToString());
-    }
+ 
     /*
      //에니메이션 작동 테스트 코드
      

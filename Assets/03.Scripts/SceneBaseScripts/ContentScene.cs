@@ -7,9 +7,14 @@ using UnityEngine;
 public class ContentScene : MonoBehaviour
 {
     public TextMeshProUGUI mbtiText;
-
+    private string userMbti;
+    private void Awake()
+    {
+        userMbti= FirebaseReadingManager.Instance.CurrentUserMBTI;
+        Debug.Log("UserMbti: "+ userMbti);
+    }
     private void Start()
     {
-        mbtiText.text = TestResult.Instance.ShowResult();
+        mbtiText.text = userMbti;
     }
 }
