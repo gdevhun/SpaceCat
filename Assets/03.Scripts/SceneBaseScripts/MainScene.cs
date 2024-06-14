@@ -10,10 +10,22 @@ public class MainScene : MonoBehaviour
     public TMP_Text characteristic;     // MBTI 특성 
     public string userMBTI;
 
+    public static MainScene Instance;
 
     private void Start()
     {
         FirebaseReadingManager.Instance.FetchCurrentUserMBTI();
+        user_MBTI.text = "사용자의 MBTI 정보를 불러오는 중입니다.";
+        characteristic.text = "MBTI 특성을 불러오는 중입니다.";
+        StartCoroutine(WaitFetchTime());
+    }
+
+    private IEnumerator WaitFetchTime()
+    {
+        // fireReadingManager의 FirebaseReadingManager 컴포넌트가 준비될 때까지 대기
+        yield return new WaitUntil(() =>
+            FirebaseReadingManager.Instance._isRecall == true);
+        // 조건이 충족되면 MBTI 특성 업데이트
         InfoMBTIData();
     }
 
