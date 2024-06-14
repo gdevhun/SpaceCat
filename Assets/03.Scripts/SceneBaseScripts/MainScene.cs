@@ -8,11 +8,19 @@ public class MainScene : MonoBehaviour
 {
     public TMP_Text user_MBTI;     // 사용자의 MBTI 
     public TMP_Text characteristic;     // MBTI 특성 
+    public string userMBTI;
+
 
     private void Start()
     {
+        FirebaseReadingManager.Instance.FetchCurrentUserMBTI();
+        InfoMBTIData();
+    }
+
+    public void InfoMBTIData()
+    {
         // FirebaseReadingManager에서 사용자 MBTI 데이터를 가져와 표시
-        string userMBTI = FirebaseReadingManager.Instance.CurrentUserMBTI;
+        userMBTI = FirebaseReadingManager.Instance.CurrentUserMBTI;
         if (!string.IsNullOrEmpty(userMBTI))
         {
             string mbtiData = GetMBTIData(userMBTI);
