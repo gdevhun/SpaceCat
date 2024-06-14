@@ -15,11 +15,11 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
     
      [Header("Firebase")]
     // Firebase 종속성 상태 변수
-    public DependencyStatus dependencyStatus;    
+    public DependencyStatus dependencyStatus;
     //[Space]
     //[Header("MBTI Type")]
     //public TMP_InputField MBTI_Field;
-    protected bool _isFirebaseInitialized = false;
+    public bool _isRecall = true;
     private string _logText = "";
     //로그 저장 크기
     const int _kMaxLogSize = 16382;
@@ -82,6 +82,7 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                 {
                     DebugLog("Found for current user.");
                     CurrentUserMBTI = snapshot.Value.ToString();
+                    _isRecall = !_isRecall;
                     DebugLog("CurrentUserMBTI: " + CurrentUserMBTI);
                     await InitializeFirebaseDB(CurrentUserMBTI);
                 }
