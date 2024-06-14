@@ -38,18 +38,6 @@ public class QALists : Singleton<QALists>
     {
         // fireReadingManager의 FirebaseReadingManager 컴포넌트가 준비될 때까지 대기
         yield return new WaitUntil(() =>
-            //FirebaseReadingManager.Instance.isTestInfoFetchCompleted == true);
             isInfoFetchCompleted == true);
-        // 조건이 충족되면 UI를 업데이트
     }
-    //private void Awake()
-    //{
-    //    if (Instance == null)
-    //    {
-    //        Instance = this;
-    //    }
-    //    _questionStrings = new string[36];
-    //    _answerString1 = new string[36];
-    //    _answerString2 = new string[36];
-    //}
 }
