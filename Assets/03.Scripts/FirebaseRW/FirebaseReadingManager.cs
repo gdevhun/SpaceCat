@@ -19,7 +19,6 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
     //[Space]
     //[Header("MBTI Type")]
     //public TMP_InputField MBTI_Field;
-    public bool isTestInfoFetchCompleted = false;
     protected bool _isFirebaseInitialized = false;
     private string _logText = "";
     //로그 저장 크기
@@ -64,14 +63,14 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
     }
 
     // 현재 사용자 정보 가져오는 메소드
-    private void FetchCurrentUserMBTI()
+    public void FetchCurrentUserMBTI()
     {
         _auth = FirebaseAuth.DefaultInstance;
         _user = _auth.CurrentUser;
 
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.
             GetReference("USER").Child(_user.UserId).Child(_user.DisplayName).Child("mbti");    //로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
-        reference.GetValueAsync().ContinueWithOnMainThread(task => {
+        reference.GetValueAsync().ContinueWithOnMainThread(async task => {
             if (task.Exception != null)
             {
                 Debug.Log(task.Exception.ToString());
@@ -81,24 +80,35 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                 DataSnapshot snapshot = task.Result;
                 if (snapshot.Exists)
                 {
+                    DebugLog("Found for current user.");
                     CurrentUserMBTI = snapshot.Value.ToString();
-                    InitializeFirebaseDB(CurrentUserMBTI);
+                    DebugLog("CurrentUserMBTI: " + CurrentUserMBTI);
+                    await InitializeFirebaseDB(CurrentUserMBTI);
                 }
                 else
                 {
                     DebugLog("No MBTI found for current user.");
-                    InitializeFirebaseDB("N/A");
+                    await InitializeFirebaseDB("N/A");
                     CurrentUserMBTI = "N/A";
                 }
             }
         });
     }
 
+    public void FetchLatestUserData()
+    {
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.
+            GetReference("USER").Child(_user.UserId).Child(_user.DisplayName).Child("mbti");    //로그인시 user가 입력한 ID란의 값을 넣어야 불러옴
+    }
+
     protected async UniTask InitializeFirebaseDB(string mbti)
     {
+        Debug.Log("InitializeFirebase");
         await FetchAllQuestionsIInfo();              // 모든 MBTI 질문 리스트 불러오기
-        await FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
-        TestResult.Instance.isInfoFetchCompleted = true;
+        Debug.Log("FetchMBTIInfo");
+        //await FetchMBTIInfo(mbti);                    // 사용자에 대한 MBTI 정보 불러오기
+        QALists.Instance.isInfoFetchCompleted = true;
+        Debug.Log("TestScene.Instance.isInfoFetchCompleted = true;");
     }    
 
     // 출력 로그 관리
@@ -168,8 +178,6 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
             fetchTasks.Add(FetchQuestionsInfo(_question)); // 리스트 i 번째의 데이터를 불러오기
         }
         await UniTask.WhenAll(fetchTasks);
-
-        isTestInfoFetchCompleted = true;
     }
 
     // MBTI 번호에 따른 각 Q/A 불러오기
@@ -196,21 +204,21 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                 questionData = snapshot.Child("question").Value.ToString();
                 DebugLog($"Question for {_question}: {questionData}");
                 // Null 체크 추가
-                if (TestResult.Instance._questionStrings == null)
+                if (QALists.Instance._questionStrings == null)
                 {
-                    DebugLog($"{_question}: TestResult.Instance._questionStrings is null");
+                    DebugLog($"{_question}: TestScene.Instance._questionStrings is null");
                     return;
                 }
-                DebugLog($"{_question}: TestResult.Instance._questionStrings is not null");
-                TestResult.Instance._questionStrings[temp - 1] = questionData;
+                DebugLog($"{_question}: TestScene.Instance._questionStrings is not null");
+                QALists.Instance._questionStrings[temp - 1] = questionData;
             }
 
             if (snapshot.HasChild("answer"))
             {
                 // Null 체크 추가
-                if (TestResult.Instance._answerString1 == null || TestResult.Instance._answerString2 == null)
+                if (QALists.Instance._answerString1 == null || QALists.Instance._answerString2 == null)
                 {
-                    DebugLog("TestResult.Instance._answerString1 or _answerString2 is null");
+                    DebugLog("TestScene.Instance._answerString1 or _answerString2 is null");
                     return;
                 }
 
@@ -219,13 +227,13 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                 {
                     string answerA = answerSnapShot.Child("a").Value.ToString();
                     Debug.Log($"Answer A for (_list): {answerA}");
-                    TestResult.Instance._answerString1[temp - 1] = answerA;
+                    QALists.Instance._answerString1[temp - 1] = answerA;
                 }
                 if (answerSnapShot.HasChild("b"))
                 {
                     string answerB = answerSnapShot.Child("b").Value.ToString();
                     Debug.Log($"Answer B for (_list): {answerB}");
-                    TestResult.Instance._answerString2[temp - 1] = answerB;
+                    QALists.Instance._answerString2[temp - 1] = answerB;
                 }
             }
         }

@@ -9,7 +9,7 @@ public class ToastNotificationMessage : MonoBehaviour
 {
     [HideInInspector]
     public float messageTime; // Receives the time this message should be displayed on the screen
-    [HideInInspector]
+    //[HideInInspector]
     public RectTransform timerRectTransform; // Receives the timer render component
     [HideInInspector]
     public bool leftToRight = true; // Which side will the timer decrease to which side?
