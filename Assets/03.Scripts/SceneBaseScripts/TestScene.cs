@@ -63,18 +63,19 @@ public class TestScene : MonoBehaviour
     }*/
     private void Start()
     {
-        StartCoroutine(WaitFetchTime());
+        UpdateTextUI();
+        //StartCoroutine(WaitFetchTime());
     }
 
-    private IEnumerator WaitFetchTime()
-    {
-        // fireReadingManager의 FirebaseReadingManager 컴포넌트가 준비될 때까지 대기
-        yield return new WaitUntil(() =>
-            //FirebaseReadingManager.Instance.isTestInfoFetchCompleted == true);
-            isInfoFetchCompleted == true);
-        // 조건이 충족되면 UI를 업데이트
-        UpdateTextUI();
-    }
+    //private IEnumerator WaitFetchTime()
+    //{
+    //    // fireReadingManager의 FirebaseReadingManager 컴포넌트가 준비될 때까지 대기
+    //    yield return new WaitUntil(() =>
+    //        //FirebaseReadingManager.Instance.isTestInfoFetchCompleted == true);
+    //        isInfoFetchCompleted == true);
+    //    // 조건이 충족되면 UI를 업데이트
+    //    UpdateTextUI();
+    //}
     private void Update()
     {
         if (_isTestOver)
@@ -82,7 +83,7 @@ public class TestScene : MonoBehaviour
            //40개의 질문에 대한 대답 끝
            FirebaseWriteManager.Instance.SaveMBTI(ShowResult());
            //FirebaseWriteManager.Instance.GetComponent<FirebaseWriteManager>().SaveMBTI(TestResult.Instance.ShowResult());
-            sceneCtrlManager.MoveScene("04.MainScene");
+            sceneCtrlManager.MoveScene("04.MainScene"); 
            //MBTI 결과 씬 이동 결과지 보여주기.
         }
     }
@@ -112,52 +113,56 @@ public class TestScene : MonoBehaviour
         thirdMBTI = t_num > f_num ? "T" : "F";
         fourthMBTI = j_num > p_num ? "J" : "P";
         finalResult = firstMBTI + secondMBTI + thirdMBTI + fourthMBTI;
-        Debug.Log(finalResult);
+        Debug.Log("finalResult: " + finalResult);
         return finalResult;
     }
-    public void OnPlayerSelect() //플레이어 선택버튼함수
+    public void OnPlayerSelect(string buttonTag) //플레이어 선택버튼함수
     {
         
         switch (_curQuestionIndex % 4)
         {
             case 0: // 0으로 나눠떨어질 때의 동작 (P vs J)
-                if (firstAnswerBtn.CompareTag("FirstAnswer"))
+                if (buttonTag == "FirstAnswer")
                 {
                     _result[6]++;  //J 하나 증가
                 }
-                else if (secondAnswerBtn.CompareTag("SecondAnswer"))
+                else if (buttonTag == "SecondAnswer")
                 {
                     _result[7]++;  //P 하나 증가
                 }
                 break;
             case 1: // 1로 나눠떨어질 때의 동작  (E vs I)
-                if (firstAnswerBtn.CompareTag("FirstAnswer"))
+                if (buttonTag == "FirstAnswer")
                 {
-                    Debug.Log("CompareTag FistAnswer");
+                    Debug.Log("CompareTag FirstAnswer: E");
+                    Debug.Log("_curQuestionIndex:" + _curQuestionIndex);
                     _result[0]++;  //E 하나 증가
                 }
-                else if (secondAnswerBtn.CompareTag("SecondAnswer"))
+                else if (buttonTag == "SecondAnswer")
                 {
-                    Debug.Log("CompareTag SecondAnswer");
+                    Debug.Log("CompareTag SecondAnswer: I");
+                    Debug.Log("_curQuestionIndex:" + _curQuestionIndex);
                     _result[1]++; //I 하나 증가
                 }
                 break;
             case 2: // 2로 나눠떨어질 때의 동작 (N vs S)
-                if (firstAnswerBtn.CompareTag("FirstAnswer"))
+                if (buttonTag == "FirstAnswer")
                 {
+                    Debug.Log("CompareTag FirstAnswer: N");
                     _result[2]++; //S 하나 증가
                 }
-                else if (secondAnswerBtn.CompareTag("SecondAnswer"))
+                else if (buttonTag == "SecondAnswer")
                 {
+                    Debug.Log("CompareTag SecondAnswer: S");
                     _result[3]++; //N 하나 증가
                 }
                 break;
             case 3: // 3으로 나눠떨어질 때의 동작 (F vs T)
-                if (firstAnswerBtn.CompareTag("FirstAnswer"))
+                if (buttonTag == "FirstAnswer")
                 {
                     _result[4]++; //T 하나 증가
                 }
-                else if (secondAnswerBtn.CompareTag("SecondAnswer"))
+                else if (buttonTag == "SecondAnswer")
                 {
                     _result[5]++; //F 하나 증가
                 }
@@ -182,9 +187,9 @@ public class TestScene : MonoBehaviour
         }
             
         //각각 보이는 질문 답 UI 업데이트
-        questionText.text = _questionStrings[_curQuestionIndex-1];
-        playerSelection1.text = _answerString1[_curQuestionIndex-1];
-        playerSelection2.text = _answerString2[_curQuestionIndex-1];
+        questionText.text = QALists.Instance._questionStrings[_curQuestionIndex-1];
+        playerSelection1.text = QALists.Instance._answerString1[_curQuestionIndex-1];
+        playerSelection2.text = QALists.Instance._answerString2[_curQuestionIndex-1];
         curQuestionNumber.text= $" {_curQuestionIndex} / 36";
         imageBar.fillAmount = (float)_curQuestionIndex / 36f;
 
