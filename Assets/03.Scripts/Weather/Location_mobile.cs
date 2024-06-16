@@ -1,3 +1,4 @@
+using Firebase.Auth;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -81,6 +82,16 @@ namespace GPS
                 yield return second;
             }
         }
+
+        public void ReadData()
+        {
+            FirebaseAuth auth = FirebaseAuth.DefaultInstance;
+            FirebaseUser user = auth.CurrentUser;
+            // 데이터를 읽기
+            FlaskCommunication.Instance.ReadData(user.UserId);
+        }
+
+
 
         // 위치 서비스 종료
         public static void StopGPS()
