@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,9 +7,23 @@ using Newtonsoft.Json;
 
 public class FlaskCommunication : Singleton<FlaskCommunication>
 {
-    private string flaskSendUrl = "http://localhost:5000/send_data";
-    private string flaskReadUrl = "http://localhost:5000/read_data";
+    private string flaskSendUrl = "http://3.38.61.33:5000/send_data";
+    private string flaskReadUrl = "http://3.38.61.33:5000/read_data";
 
+    // 위치 정보 저장을 위한 변수
+    private double latitude;
+    private double longitude;
+    private double altitude;
+
+    // 위치 정보를 설정하는 메소드
+    public void SetLocation(double lat, double lon, double alt)
+    {
+        latitude = lat;
+        longitude = lon;
+        altitude = alt;
+    }
+
+    // 데이터 서버에 전달
     public void SendData()
     {
         FirebaseAuth auth = FirebaseAuth.DefaultInstance;
@@ -20,6 +35,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
             string userId = user.UserId;
             string userName = user.DisplayName;
             string userEmail = user.Email;
+            string currentDate = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
 
             // 보낼 데이터 생성
             var data = new
@@ -27,6 +43,13 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
                 userId = userId,
                 userName = userName,
                 userEmail = userEmail,
+                location = new
+                {
+                    latitude = latitude,
+                    longitude = longitude,
+                    altitude = altitude
+                },
+                date = currentDate
             };
 
             // 데이터 전송 시작
@@ -38,6 +61,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
         }
     }
 
+    // 서버 데이터 읽어 오기
     public void ReadData(string userId)
     {
         StartCoroutine(GetDataFromFlask(userId));

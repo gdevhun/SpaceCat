@@ -8,7 +8,7 @@ app = Flask(__name__)
 # 데이터 받기
 @app.route('/send_data', methods=['POST'])
 def send_data():
-    data = request.get_json()
+    data = request.get_json() 
     user_id = data.get('userId')
 
     if not user_id:

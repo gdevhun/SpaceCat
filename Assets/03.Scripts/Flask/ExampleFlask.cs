@@ -5,6 +5,7 @@ public class ExampleFlask : MonoBehaviour
 {
     public void SendData()
     {
+        FlaskCommunication.Instance.SetLocation(1, 1, 1);
         // 데이터를 보내기
         FlaskCommunication.Instance.SendData();
     }
