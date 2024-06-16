@@ -133,7 +133,8 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
             DebugLog("유효하지 않은 MBTI 입니다.");
             return;
         }
-        DebugLog($"{mbtiType}에 대한 정보를 불러오는 중");
+        
+
 
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("MBTI").Child(mbtiType);
 
@@ -168,6 +169,7 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
             DebugLog($"No data found for MBTI type: {mbtiType}");
         }
     }
+        
 
     // 모든 MBTI 질문 리스트 불러오기
     private async UniTask FetchAllQuestionsIInfo()

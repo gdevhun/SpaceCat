@@ -128,7 +128,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
 
             // JSON 응답을 파싱하여 필요한 문자열 변수만 추출
             var response = JsonConvert.DeserializeObject<ServerResponse>(request.downloadHandler.text);
-            string det = response.det;
+            string det = response.data.det;
             callback(det);
         }
         else
@@ -154,6 +154,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
         public Location location;
         public string date;
         public string forecast;
+        public string det;
     }
 
     [Serializable]
