@@ -19,5 +19,17 @@ public class LogoutManager : MonoBehaviour
     void OnLogoutResponse(string response)
     {
         Debug.Log("Logout Response: " + response);
+
+        // Parse the response
+        var responseObject = JsonUtility.FromJson<ResponseObject>(response);
+        if (responseObject.status == "success")
+        {
+            // Handle successful logout (e.g., redirect to login screen)
+            Debug.Log("Logout successful.");
+        }
+        else
+        {
+            ErrorHandlingManager.HandleLoginError(responseObject.message);
+        }
     }
 }

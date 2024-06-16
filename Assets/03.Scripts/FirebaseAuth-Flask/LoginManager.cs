@@ -18,6 +18,14 @@ public class LoginManager : MonoBehaviour
     {
         string email = emailInput.text;
         string password = passwordInput.text;
+
+        // Validate inputs
+        if (!ErrorHandlingManager.ValidateInput(email, "이메일을 입력해 주세요.") ||
+            !ErrorHandlingManager.ValidateInput(password, "비밀번호를 입력해 주세요."))
+        {
+            return;
+        }
+
         var json = new { email, password };
         StartCoroutine(RequestHandler.PostRequest(loginUrl, json, OnLoginResponse));
     }
@@ -25,5 +33,16 @@ public class LoginManager : MonoBehaviour
     void OnLoginResponse(string response)
     {
         Debug.Log("Login Response: " + response);
+
+        // Parse the response
+        var responseObject = JsonUtility.FromJson<ResponseObject>(response);
+        if (responseObject.status == "success")
+        {
+            UIManagerAuth.Instance.OpenGamePanel();
+        }
+        else
+        {
+            ErrorHandlingManager.HandleLoginError(responseObject.message);
+        }
     }
 }
