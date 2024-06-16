@@ -602,7 +602,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 997240293}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ExampleFlask, Assembly-CSharp
         m_MethodName: SendLocationAndDate
         m_Mode: 1
@@ -3061,7 +3061,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 997240294}
-  - component: {fileID: 997240293}
+  - component: {fileID: 997240295}
   m_Layer: 0
   m_Name: FlaskComuManager
   m_TagString: Untagged
@@ -3069,18 +3069,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &997240293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 997240292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac23593cfb2c01459386fe308614075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &997240294
 Transform:
   m_ObjectHideFlags: 0
@@ -3096,6 +3084,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &997240295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997240292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1405ddbc09a310047865809fd93baa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1054081508
 GameObject:
   m_ObjectHideFlags: 0
@@ -3903,9 +3903,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 997240293}
-        m_TargetAssemblyTypeName: ExampleFlask, Assembly-CSharp
-        m_MethodName: SendForecast
+      - m_Target: {fileID: 997240295}
+        m_TargetAssemblyTypeName: GPS.Location, Assembly-CSharp
+        m_MethodName: StartGPS
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

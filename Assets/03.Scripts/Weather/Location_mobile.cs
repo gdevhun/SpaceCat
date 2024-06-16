@@ -17,29 +17,34 @@ namespace GPS
 
         private static LocationInfo location;
 
-        IEnumerator Start()
+        public void StartGPS()
+        {
+            StartCoroutine(StartGPSCoroutine());
+        }
+
+        private IEnumerator StartGPSCoroutine()
         {
             yield return second;
 
-            //  유저 권한 요청
+            // 유저 권한 요청
             if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
             {
-                yield return null;
                 Permission.RequestUserPermission(Permission.FineLocation);
+                yield return null;
             }
 
-            // 유저가 GPS 사용중인지 최초 체크
+            // 유저가 GPS 사용 중인지 최초 체크
             if (!Input.location.isEnabledByUser)
             {
                 Debug.Log("GPS is not enabled");
                 yield break;
             }
 
-            //GPS 서비스 시작
+            // GPS 서비스 시작
             Input.location.Start();
             Debug.Log("Awaiting initialization");
 
-            //활성화될 때 까지 대기
+            // 활성화될 때까지 대기
             int maxWait = 20;
             while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
             {
@@ -47,36 +52,37 @@ namespace GPS
                 maxWait -= 1;
             }
 
-            //20초 지날경우 활성화 중단
+            // 20초 지나면 활성화 중단
             if (maxWait < 1)
             {
                 Debug.Log("Timed out");
                 yield break;
             }
 
-            //연결 실패
+            // 연결 실패
             if (Input.location.status == LocationServiceStatus.Failed)
             {
                 Debug.Log("Unable to determine device location");
                 yield break;
-
             }
             else
             {
-                //현재 위치 갱신                        
+                // 현재 위치 갱신
                 yield return second;
                 location = Input.location.lastData;
                 current_Lat = location.latitude;
                 current_Long = location.longitude;
                 Debug.Log(current_Lat);
                 Debug.Log(current_Long);
-                result = GPStoXY.dfs_xy_conf("toXY", current_Lat, current_Long);
-                Debug.Log($"X: {result["x"]}, Y: {result["y"]}");
+                // 위치 전송
+
+                FlaskCommunication.Instance.SendDataWithLocationAndDate(current_Lat, current_Long);
+
                 yield return second;
             }
         }
 
-        //위치 서비스 종료
+        // 위치 서비스 종료
         public static void StopGPS()
         {
             if (Input.location.isEnabledByUser)
@@ -87,9 +93,8 @@ namespace GPS
 
         public static Dictionary<string, double> GetXY()
         {
-            // 결과 반환시, result["x 또는 y"];로 호출
+            // 결과 반환 시, result["x 또는 y"];로 호출
             return result;
         }
-        
     }
 }

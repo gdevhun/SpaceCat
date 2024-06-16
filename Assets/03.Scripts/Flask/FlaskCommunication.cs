@@ -18,6 +18,9 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
     {
         FirebaseAuth auth = FirebaseAuth.DefaultInstance;
         FirebaseUser user = auth.CurrentUser;
+        
+        NTPClient ntpClient = new NTPClient();
+        DateTime networkTime = ntpClient.GetNetworkTime();
 
         if (user != null)
         {
@@ -25,7 +28,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
             string userId = user.UserId;
             string userName = user.DisplayName;
             string userEmail = user.Email;
-            string currentDate = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            string currentDate = networkTime.ToString("yyyyMMddHHmm");
 
             // 보낼 데이터 생성
             var data = new
