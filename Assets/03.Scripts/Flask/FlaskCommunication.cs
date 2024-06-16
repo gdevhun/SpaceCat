@@ -9,22 +9,18 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
 {
     private string flaskSendUrl = "http://3.38.61.33:5000/send_data";
     private string flaskReadUrl = "http://3.38.61.33:5000/send_data";
-
+    // 3.38.61.33
     // 위치 정보 저장을 위한 변수
     private double latitude;
     private double longitude;
 
-    // 위치 정보를 설정하는 메소드
-    public void SetLocation(double lat, double lon, double alt)
-    {
-        latitude = lat;
-        longitude = lon;
-    }
-
-    public void SendDataWithLocationAndDate(double latitude, double longitude)
+    public void SendDataWithLocationAndDate(double latitude, double longitude, Action<string> callback)
     {
         FirebaseAuth auth = FirebaseAuth.DefaultInstance;
         FirebaseUser user = auth.CurrentUser;
+
+        NTPClient ntpClient = new NTPClient();
+        DateTime networkTime = ntpClient.GetNetworkTime();
 
         if (user != null)
         {
@@ -32,7 +28,9 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
             string userId = user.UserId;
             string userName = user.DisplayName;
             string userEmail = user.Email;
-            string currentDate = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            string currentDate = networkTime.ToString("yyyyMMddHHmm");
+            Debug.Log(currentDate);
+
 
             // 보낼 데이터 생성
             var data = new
@@ -46,11 +44,11 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
                     latitude = latitude,
                     longitude = longitude
                 },
-                date = currentDate
+                datetime = currentDate
             };
 
             // 데이터 전송 시작
-            StartCoroutine(SendDataToFlask(data));
+            StartCoroutine(SendDataToFlask(data, callback));
         }
         else
         {
@@ -58,7 +56,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
         }
     }
 
-    public void SendDataWithForecast(string forecast)
+    public void SendDataWithForecast(string forecast, Action<string> callback)
     {
         FirebaseAuth auth = FirebaseAuth.DefaultInstance;
         FirebaseUser user = auth.CurrentUser;
@@ -80,7 +78,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
             };
 
             // 데이터 전송 시작
-            StartCoroutine(SendDataToFlask(data));
+            StartCoroutine(SendDataToFlask(data, callback));
         }
         else
         {
@@ -89,12 +87,12 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
     }
 
     // 서버 데이터 읽어 오기
-    public void ReadData(string userId)
+    public void ReadData(string userId, Action<string> callback)
     {
-        StartCoroutine(GetDataFromFlask(userId));
+        StartCoroutine(GetDataFromFlask(userId, callback));
     }
 
-    IEnumerator SendDataToFlask(object data)
+    IEnumerator SendDataToFlask(object data, Action<string> callback)
     {
         string json = JsonConvert.SerializeObject(data);
         UnityWebRequest request = new UnityWebRequest(flaskSendUrl, "POST");
@@ -116,7 +114,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
         }
     }
 
-    IEnumerator GetDataFromFlask(string userId)
+    IEnumerator GetDataFromFlask(string userId, Action<string> callback)
     {
         UnityWebRequest request = UnityWebRequest.Get($"{flaskReadUrl}/{userId}");
 
@@ -126,10 +124,41 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
         {
             Debug.Log("Data received successfully!");
             Debug.Log(request.downloadHandler.text);
+
+            // JSON 응답을 파싱하여 필요한 문자열 변수만 추출
+            var response = JsonConvert.DeserializeObject<ServerResponse>(request.downloadHandler.text);
+            string det = response.det;
+            callback(det);
         }
         else
         {
             Debug.LogError($"Error receiving data: {request.error}");
         }
+    }
+
+    [Serializable]
+    public class ServerResponse
+    {
+        public string status;
+        public Data data;
+        public string det;
+    }
+
+    [Serializable]
+    public class Data
+    {
+        public string userId;
+        public string userName;
+        public string userEmail;
+        public Location location;
+        public string date;
+        public string forecast;
+    }
+
+    [Serializable]
+    public class Location
+    {
+        public float latitude;
+        public float longitude;
     }
 }
