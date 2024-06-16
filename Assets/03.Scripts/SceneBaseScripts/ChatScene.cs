@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChatScene : MonoBehaviour
 {
+    [SerializeField] private string _chatAIText;
+    [SerializeField] private string _userText;
     // Start is called before the first frame update
     void Start()
     {

@@ -285,7 +285,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a3617662be22f164fab6e4af59816eef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6d287634f8c46f43ba3741239a58a96, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8515,7 +8515,7 @@ MonoBehaviour:
   registrationPanel: {fileID: 501269547}
   findIDPWPanel: {fileID: 1139990394}
   termOfServicePanel: {fileID: 1538667}
-  gamePanel: {fileID: 93851450}
+  profilePanel: {fileID: 93851450}
   emailVerificationText: {fileID: 73957508}
   emailVerificationPanel: {fileID: 231081800}
   errorPanel: {fileID: 59912196}
