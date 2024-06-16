@@ -20,7 +20,20 @@ public class ExampleFlask : MonoBehaviour
         FirebaseAuth auth = FirebaseAuth.DefaultInstance;
         FirebaseUser user = auth.CurrentUser;
 
-        // 데이터를 읽기
-        FlaskCommunication.Instance.ReadData(user.UserId);
+        if (user != null)
+        {
+            // 데이터를 읽기
+            FlaskCommunication.Instance.ReadData(user.UserId, HandleExtraInfo);
+        }
+        else
+        {
+            Debug.LogError("User not signed in.");
+        }
+
+    }
+
+    private void HandleExtraInfo(string det)
+    {
+        // det 처리 하는 부분
     }
 }
