@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Firebase.Auth;
@@ -17,27 +16,37 @@ public class FlaskCommunication : MonoBehaviour
 
         if (user != null)
         {
-            // 사용자 데이터를 가져옴
-            string userId = user.UserId;
-            string userName = user.DisplayName;
-            string userEmail = user.Email;
-
-            // 보낼 데이터 생성
-            var data = new
-            {
-                userId = userId,
-                userName = userName,
-                userEmail = userEmail,
-                customData = new { message = "Hello from Unity" } // 추가적인 데이터 포함
-            };
-
-            // 데이터 전송 시작
-            StartCoroutine(SendDataToFlask(data));
+            // 토큰을 가져와서 데이터를 전송
+            StartCoroutine(GetTokenAndSendData(user));
         }
         else
         {
             Debug.LogError("User not signed in.");
         }
+    }
+
+    IEnumerator GetTokenAndSendData(FirebaseUser user)
+    {
+        var task = user.TokenAsync(true);
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        if (task.Exception != null)
+        {
+            Debug.LogError("Failed to get token: " + task.Exception);
+            yield break;
+        }
+
+        string idToken = task.Result;
+
+        // 보낼 데이터 생성
+        var data = new
+        {
+            idToken = idToken,
+            customData = new { message = "Hello from Unity" } // 추가적인 데이터 포함
+        };
+
+        // 데이터 전송 시작
+        StartCoroutine(SendDataToFlask(data));
     }
 
     IEnumerator SendDataToFlask(object data)
