@@ -30,6 +30,6 @@ public class ContentScene : MonoBehaviour
         inputField.text = "";
         sendBtn.interactable = false;
     }
-    public void SendOpinionBtn() =>  FirebaseWriteManager.Instance.SaveOpinion(userInputData); //firebase에 대화 등록 버튼
+    public void SendOpinionBtn() => FirebaseWriteManager.Instance.SaveOpinion(userMbti, userInputData); //firebase에 대화 등록 버튼
 
 }

@@ -32,6 +32,7 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
     private string _hobby3;
     // 사용자 MBTI 
     public string CurrentUserMBTI { get; internal set; } 
+    public string CurrentUserID { get; internal set; } 
     //질문 변수
     private string _question;
     //현재 로그인된 사용자
@@ -81,6 +82,7 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
                 if (snapshot.Exists)
                 {
                     DebugLog("Found for current user.");
+                    CurrentUserID = _user.UserId.ToString();
                     CurrentUserMBTI = snapshot.Value.ToString();
                     _isRecall = !_isRecall;
                     DebugLog("CurrentUserMBTI: " + CurrentUserMBTI);
