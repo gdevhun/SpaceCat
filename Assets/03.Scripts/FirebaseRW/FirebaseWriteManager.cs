@@ -83,5 +83,29 @@ public class FirebaseWriteManager : Singleton<FirebaseWriteManager>
         {
             Debug.LogError("User not logged in. Please log in to save data.");
         }
-    }    
+    }
+
+    public void SaveOpinion(string userOpinion)
+    {
+        if (_user != null)
+        {
+            string userId = _user.UserId;
+            _databaseReference.Child("OpinionData").Child(userId).Push().SetValueAsync(userOpinion).ContinueWith(task => 
+            { //Firebase에 user에 mbti 종속한걸 쓰기
+                if (task.IsFaulted)
+                {
+                    Debug.LogError("Error writing MBTI to Firebase: " + task.Exception);
+                }
+                else
+                {
+                    Debug.Log("MBTI successfully saved.");
+                }
+            });
+        }
+        else
+        {
+            Debug.LogError("User not logged in. Please log in to save data.");
+        }
+        
+    }
 }
