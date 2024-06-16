@@ -13,7 +13,7 @@ public class UIManagerAuth : Singleton<UIManagerAuth>
     [SerializeField] private GameObject registrationPanel;
     [SerializeField] private GameObject findIDPWPanel;
     [SerializeField] private GameObject termOfServicePanel;
-    [SerializeField] private GameObject gamePanel;
+    [SerializeField] private GameObject profilePanel;
 
     [Space]
     [Header("Email")]
@@ -78,14 +78,14 @@ public class UIManagerAuth : Singleton<UIManagerAuth>
     public void OpenLoginPanel() => OpenPanel(loginPanel);
     public void OpenRegistrationPanel() => OpenPanel(registrationPanel);
     public void OpenFindIDPWPanel() => OpenPanel(findIDPWPanel);
-    public void OpenGamePanel() => OpenPanel(gamePanel);
+    public void OpenGamePanel() => OpenPanel(profilePanel);
     public void OpentermOfServicePanel() => OpenPanel(termOfServicePanel);
 
     public void ClearUI()
     {
         loginPanel.SetActive(false);
         registrationPanel.SetActive(false);
-        gamePanel.SetActive(false);
+        profilePanel.SetActive(false);
         findIDPWPanel.SetActive(false);
         termOfServicePanel.SetActive(false);
     }
