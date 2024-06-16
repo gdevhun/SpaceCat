@@ -1,6 +1,7 @@
 using Firebase.Auth;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -17,6 +18,9 @@ namespace GPS
         private static WaitForSeconds second = new WaitForSeconds(1);
 
         private static LocationInfo location;
+
+        [SerializeField]
+        public TextMeshProUGUI txtMain;
 
         public void StartGPS()
         {
@@ -80,8 +84,17 @@ namespace GPS
                 FlaskCommunication.Instance.SendDataWithLocationAndDate(current_Lat, current_Long, emptyFunction);
 
                 yield return second;
+
+                StartCoroutine(ExecuteReadDataAfterDelay(5f));
             }
         }
+
+        private IEnumerator ExecuteReadDataAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            ReadData();
+        }
+
 
         public void ReadData()
         {
@@ -89,9 +102,7 @@ namespace GPS
             FirebaseUser user = auth.CurrentUser;
             // 데이터를 읽기
             FlaskCommunication.Instance.ReadData(user.UserId, emptyFunction);
-        }
-
-
+        }              
 
         // 위치 서비스 종료
         public static void StopGPS()
@@ -110,6 +121,8 @@ namespace GPS
 
         public void emptyFunction(string def)
         {
+            Debug.Log(def);
+            txtMain.text = def;
         }
     }
 }

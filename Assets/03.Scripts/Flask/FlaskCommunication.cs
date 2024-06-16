@@ -29,6 +29,8 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
             string userName = user.DisplayName;
             string userEmail = user.Email;
             string currentDate = networkTime.ToString("yyyyMMddHHmm");
+            Debug.Log(currentDate);
+
 
             // 보낼 데이터 생성
             var data = new
@@ -42,7 +44,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
                     latitude = latitude,
                     longitude = longitude
                 },
-                date = currentDate
+                datetime = currentDate
             };
 
             // 데이터 전송 시작
