@@ -3,11 +3,16 @@ using Firebase.Auth;
 
 public class ExampleFlask : MonoBehaviour
 {
-    public void SendData()
+    public void SendLocationAndDate()
     {
-        FlaskCommunication.Instance.SetLocation(1, 1, 1);
-        // 데이터를 보내기
-        FlaskCommunication.Instance.SendData();
+        // 날짜와 위치 정보를 포함한 데이터를 보내기
+        FlaskCommunication.Instance.SendDataWithLocationAndDate(37.7749, -122.4194);
+    }
+
+    public void SendForecast()
+    {
+        // 예보 정보를 포함한 데이터를 보내기
+        FlaskCommunication.Instance.SendDataWithForecast("Sunny with a chance of rain");
     }
 
     public void ReadData()

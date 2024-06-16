@@ -8,23 +8,20 @@ using Newtonsoft.Json;
 public class FlaskCommunication : Singleton<FlaskCommunication>
 {
     private string flaskSendUrl = "http://3.38.61.33:5000/send_data";
-    private string flaskReadUrl = "http://3.38.61.33:5000/read_data";
+    private string flaskReadUrl = "http://3.38.61.33:5000/send_data";
 
     // 위치 정보 저장을 위한 변수
     private double latitude;
     private double longitude;
-    private double altitude;
 
     // 위치 정보를 설정하는 메소드
     public void SetLocation(double lat, double lon, double alt)
     {
         latitude = lat;
         longitude = lon;
-        altitude = alt;
     }
 
-    // 데이터 서버에 전달
-    public void SendData()
+    public void SendDataWithLocationAndDate(double latitude, double longitude)
     {
         FirebaseAuth auth = FirebaseAuth.DefaultInstance;
         FirebaseUser user = auth.CurrentUser;
@@ -43,13 +40,43 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
                 userId = userId,
                 userName = userName,
                 userEmail = userEmail,
+                // 위치 정보 (위도 경도 고도)
                 location = new
                 {
                     latitude = latitude,
-                    longitude = longitude,
-                    altitude = altitude
+                    longitude = longitude
                 },
                 date = currentDate
+            };
+
+            // 데이터 전송 시작
+            StartCoroutine(SendDataToFlask(data));
+        }
+        else
+        {
+            Debug.LogError("User not signed in.");
+        }
+    }
+
+    public void SendDataWithForecast(string forecast)
+    {
+        FirebaseAuth auth = FirebaseAuth.DefaultInstance;
+        FirebaseUser user = auth.CurrentUser;
+
+        if (user != null)
+        {
+            // 사용자 데이터를 가져옴
+            string userId = user.UserId;
+            string userName = user.DisplayName;
+            string userEmail = user.Email;
+
+            // 보낼 데이터 생성
+            var data = new
+            {
+                userId = userId,
+                userName = userName,
+                userEmail = userEmail,
+                forecast = forecast
             };
 
             // 데이터 전송 시작
