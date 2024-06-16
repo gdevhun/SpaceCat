@@ -84,3 +84,4 @@ user.keystore
 *.meta text eol=lf
 
 
+FlaskServer/serviceAccountKey.json
