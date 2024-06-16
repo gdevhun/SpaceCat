@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/05.Scenes/PC/04_02.ContentScene.unity
     guid: 1496a9d3563900d4284b6ab40ad3f8e3
+  - enabled: 1
+    path: Assets/05.Scenes/PC/02.LoginScene(Flask).unity
+    guid: 99025906590e30f409027a00496a8848
   m_configObjects: {}

@@ -8,14 +8,14 @@ public class SoundManager : Singleton<SoundManager>
 {
     private bool isPlaying;
     public AudioSource audioSource;
-    
+
     public AudioClip sceneMoveSfx;
     public AudioClip sceneMoveSfx2;
 
     public AudioClip btnSfx1;
     public AudioClip btnSfx2;
     public AudioClip typingSfx;
-  
+
     public void PlaySceneSfx1()
     {
         audioSource.clip = sceneMoveSfx;
@@ -31,7 +31,7 @@ public class SoundManager : Singleton<SoundManager>
     public void PlayTypingSfx()
     {
         if (isPlaying) return;
-        
+
         isPlaying = true;
         audioSource.PlayOneShot(typingSfx);
         WaitTypingTime().Forget();
@@ -40,7 +40,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         audioSource.clip = btnSfx1;
         audioSource.PlayOneShot(btnSfx1);
-    } 
+    }
     public void PlayBtnSfx2()
     {
         audioSource.clip = btnSfx1;
