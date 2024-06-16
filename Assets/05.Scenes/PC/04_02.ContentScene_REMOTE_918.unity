@@ -1015,18 +1015,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 997240293}
-        m_TargetAssemblyTypeName: ExampleFlask, Assembly-CSharp
-        m_MethodName: SendLocationAndDate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &256794908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3855,11 +3843,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931129772}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
---- !u!1 &997240292
-=======
 --- !u!1 &975800281
->>>>>>> feature/communication
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3867,26 +3851,16 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 997240294}
-  - component: {fileID: 997240293}
-  m_Layer: 0
-  m_Name: FlaskComuManager
-=======
   - component: {fileID: 975800282}
   - component: {fileID: 975800284}
   - component: {fileID: 975800283}
   m_Layer: 5
   m_Name: Text (TMP) (4)
->>>>>>> feature/communication
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!114 &997240293
-=======
 --- !u!224 &975800282
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3907,22 +3881,11 @@ RectTransform:
   m_SizeDelta: {x: 860, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &975800283
->>>>>>> feature/communication
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 997240292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac23593cfb2c01459386fe308614075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &997240294
-Transform:
-=======
   m_GameObject: {fileID: 975800281}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -4008,22 +3971,10 @@ Transform:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &975800284
 CanvasRenderer:
->>>>>>> feature/communication
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 997240292}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1359136, y: 0.12781447, z: 0.046794053}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
   m_GameObject: {fileID: 975800281}
   m_CullTransparentMesh: 1
 --- !u!1 &1051619991
@@ -4170,7 +4121,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051619991}
   m_CullTransparentMesh: 1
->>>>>>> feature/communication
 --- !u!1 &1054081508
 GameObject:
   m_ObjectHideFlags: 0
@@ -5483,18 +5433,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 997240293}
-        m_TargetAssemblyTypeName: ExampleFlask, Assembly-CSharp
-        m_MethodName: SendForecast
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7879,4 +7817,3 @@ SceneRoots:
   - {fileID: 627116300}
   - {fileID: 1388732047}
   - {fileID: 1070414010}
-  - {fileID: 997240294}

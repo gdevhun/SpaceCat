@@ -62,13 +62,4 @@ public class ConnectionPanel : MonoBehaviour
     
     }
     
-
-    private void Start()
-    {
-        
-       
-    }
-    
-    
-
 }

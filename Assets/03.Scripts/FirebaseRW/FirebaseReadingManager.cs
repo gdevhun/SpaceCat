@@ -243,6 +243,36 @@ public class FirebaseReadingManager : Singleton<FirebaseReadingManager>
             DebugLog($"No data found for question: {_question}");
         }
     }
+    /*private async UniTask FetchOpinionInfo()
+    {
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.
+            GetReference("OpinionData");
+
+        DebugLog("Fetching data...");
+        DataSnapshot snapshot = await reference.GetValueAsync().AsUniTask();
+        
+        if (snapshot.Exists)
+        {
+            DebugLog($"Total opinions: {snapshot.ChildrenCount}");
+            foreach (DataSnapshot userSnapshot in snapshot.Children)
+            {
+                string userId = userSnapshot.Key;
+                DebugLog($"User ID: {userId}");
+
+                foreach (DataSnapshot opinionSnapshot in userSnapshot.Children)
+                {
+                    string opinionKey = opinionSnapshot.Key;
+                    string opinionValue = opinionSnapshot.Value.ToString();
+                    DebugLog($"Opinion ID: {opinionKey}, Opinion: {opinionValue}");
+                }
+            }
+        }
+        else
+        {
+            DebugLog("No data found in OpinionData.");
+        }
+    }*/
+    
 
     public string GetDetail()
     {
