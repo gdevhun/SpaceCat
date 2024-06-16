@@ -14,11 +14,11 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
     private double latitude;
     private double longitude;
 
-    public void SendDataWithLocationAndDate(double latitude, double longitude)
+    public void SendDataWithLocationAndDate(double latitude, double longitude, Action<string> callback)
     {
         FirebaseAuth auth = FirebaseAuth.DefaultInstance;
         FirebaseUser user = auth.CurrentUser;
-        
+
         NTPClient ntpClient = new NTPClient();
         DateTime networkTime = ntpClient.GetNetworkTime();
 
@@ -46,7 +46,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
             };
 
             // 데이터 전송 시작
-            StartCoroutine(SendDataToFlask(data));
+            StartCoroutine(SendDataToFlask(data, callback));
         }
         else
         {
@@ -54,7 +54,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
         }
     }
 
-    public void SendDataWithForecast(string forecast)
+    public void SendDataWithForecast(string forecast, Action<string> callback)
     {
         FirebaseAuth auth = FirebaseAuth.DefaultInstance;
         FirebaseUser user = auth.CurrentUser;
@@ -76,7 +76,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
             };
 
             // 데이터 전송 시작
-            StartCoroutine(SendDataToFlask(data));
+            StartCoroutine(SendDataToFlask(data, callback));
         }
         else
         {
@@ -90,7 +90,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
         StartCoroutine(GetDataFromFlask(userId, callback));
     }
 
-    IEnumerator SendDataToFlask(object data)
+    IEnumerator SendDataToFlask(object data, Action<string> callback)
     {
         string json = JsonConvert.SerializeObject(data);
         UnityWebRequest request = new UnityWebRequest(flaskSendUrl, "POST");

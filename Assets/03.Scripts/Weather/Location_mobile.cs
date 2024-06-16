@@ -76,7 +76,7 @@ namespace GPS
                 Debug.Log(current_Long);
                 // 위치 전송
 
-                FlaskCommunication.Instance.SendDataWithLocationAndDate(current_Lat, current_Long);
+                FlaskCommunication.Instance.SendDataWithLocationAndDate(current_Lat, current_Long, emptyFunction);
 
                 yield return second;
             }
@@ -95,6 +95,10 @@ namespace GPS
         {
             // 결과 반환 시, result["x 또는 y"];로 호출
             return result;
+        }
+
+        public void emptyFunction(string def)
+        {
         }
     }
 }
