@@ -119,10 +119,10 @@ namespace GPS
             return result;
         }
 
-        public void emptyFunction(string def)
+        public void emptyFunction(string det)
         {
-            Debug.Log(def);
-            txtMain.text = def;
+            Debug.Log(det);
+            txtMain.text = det;
         }
     }
 }

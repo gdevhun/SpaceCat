@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 public class FlaskCommunication : Singleton<FlaskCommunication>
 {
     private string flaskSendUrl = "http://3.38.61.33:5000/send_data";
-    private string flaskReadUrl = "http://3.38.61.33:5000/send_data";
+    private string flaskReadUrl = "http://3.38.61.33:5000/home/weather";
     // 3.38.61.33
     // 위치 정보 저장을 위한 변수
     private double latitude;
@@ -116,8 +116,9 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
 
     IEnumerator GetDataFromFlask(string userId, Action<string> callback)
     {
-        UnityWebRequest request = UnityWebRequest.Get($"{flaskReadUrl}/{userId}");
+        UnityWebRequest request = UnityWebRequest.Get($"{flaskReadUrl}/{userId}.json");
 
+        Debug.Log("Try to received data");
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
