@@ -1404,6 +1404,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1122968837}
+        m_TargetAssemblyTypeName: GPS.Location, Assembly-CSharp
+        m_MethodName: StartGPS
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &256794908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4674,7 +4686,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1473858346}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -5721,6 +5733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtMain: {fileID: 1497141254}
+  txtMain2: {fileID: 1812466611}
 --- !u!4 &1122968838
 Transform:
   m_ObjectHideFlags: 0
@@ -8145,7 +8158,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -151.4774, y: 0, z: -154.70027, w: 0}
+  m_margin: {x: -202.68654, y: 0, z: -228.3134, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -9750,8 +9763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -75.011, y: 0}
-  m_SizeDelta: {x: 450.04, y: 119.53}
+  m_AnchoredPosition: {x: -107.01, y: 0}
+  m_SizeDelta: {x: 514.05, y: 119.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1812466611
 MonoBehaviour:
@@ -9836,7 +9849,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -154.70027, w: 0}
+  m_margin: {x: 0, y: 0, z: -212.31065, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

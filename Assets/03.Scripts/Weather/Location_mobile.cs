@@ -18,6 +18,7 @@ namespace GPS
 
         [SerializeField]
         public TextMeshProUGUI txtMain;
+        public TextMeshProUGUI txtMain2;
 
         public void StartGPS()
         {
@@ -64,6 +65,7 @@ namespace GPS
         {
             Debug.Log(det);
             txtMain.text = det;
+            txtMain2.text = det;
         }
     }
 }
