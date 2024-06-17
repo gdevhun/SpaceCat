@@ -1,0 +1,274 @@
+// <copyright file="TestResolverBootstrapped.cs" company="Google Inc.">
+// Copyright (C) 2019 Google Inc. All Rights Reserved.
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//    limitations under the License.
+// </copyright>
+
+using System;
+using System.Collections.Generic;
+using System.Net;
+using Google;
+
+[UnityEditor.InitializeOnLoad]
+public class TestPortableWebRequest {
+
+    // Whether the get operation succeeded.
+    private static bool getSucceeded = false;
+    // Whether the get operation with no query succeeded.
+    private static bool getNoQuerySucceeded = false;
+    // Whether the get operation with no headers succeeded.
+    private static bool getNoHeadersSucceeded = false;
+    // Whether the post operation succeeded.
+    private static bool postSucceeded = false;
+    // Whether the post operation with no headers succeeded.
+    private static bool postNoHeadersSucceeded = false;
+    // Whether the post operation with no form fields succeeded.
+    private static bool postNoFormFieldsSucceeded = false;
+
+    /// <summary>
+    /// Register a method to call when the Version Handler has enabled all plugins in the project.
+    /// </summary>
+    static TestPortableWebRequest() {
+        // Disable stack traces for more condensed logs.
+        UnityEngine.Application.stackTraceLogType = UnityEngine.StackTraceLogType.None;
+        RunOnMainThread.Run(StartTests, runNow: false);
+    }
+
+    /// <summary>
+    /// Convert a dictionary of string key value pairs to a sorted newline separated string
+    /// </summary>
+    /// <param name="prefix">If specified, only keys will this prefix are included.</param>
+    /// <param name="lowercaseKeys">Convert all keys to lowercase, this is required as WWW class
+    /// converts all headers to uppercase.</param>
+    /// <param name="items">Items to convert to a newline separated string.</param>
+    /// <returns>Sorted newline separated string.</returns>
+    private static string DictionaryToString(string prefix, bool lowercaseKeys,
+                                             IDictionary<string, string> items) {
+        var stringList = new List<string>();
+        foreach (var kv in items) {
+            var key = lowercaseKeys ? kv.Key.ToLower() : kv.Key;
+            if (String.IsNullOrEmpty(prefix) || key.StartsWith(prefix)) {
+                stringList.Add(String.Format("{0}={1}", key, kv.Value));
+            }
+        }
+        stringList.Sort();
+        return String.Join("\n", stringList.ToArray());
+    }
+
+    /// <summary>
+    /// Determine whether two values are equal.
+    /// </summary>
+    /// <param name="lhs">Object to compare.</param>
+    /// <param name="rhs">Object to compare.</param>
+    /// <returns>true if they're both equal, false and prints each object as a string to the console
+    /// if they differ.</returns>
+    private static bool CheckEqual(object lhs, object rhs) {
+        if (!lhs.Equals(rhs)) {
+            UnityEngine.Debug.Log(String.Format("Check failed:\n  '{0}' !=\n  '{1}'", lhs, rhs));
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Execute tests.
+    /// </summary>
+    public static void StartTests() {
+        var webRequest = PortableWebRequest.DefaultInstance;
+        UnityEngine.Debug.Log("Running get test...");
+        var getStatus = webRequest.Get("http://localhost:8000/get?foo1=bar1&foo2=bar2",
+                                       new Dictionary<string, string> {
+                                           { "Echo-Foo", "Bar" },
+                                           { "Echo-Bish", "Bosh" }
+                                       });
+        RunOnMainThread.PollOnUpdateUntilComplete(() => {
+                var complete = getStatus.Complete;
+                if (complete) {
+                    getSucceeded = CheckEqual(getStatus.Status, HttpStatusCode.OK);
+                    getSucceeded &= CheckEqual(DictionaryToString("echo-", true, getStatus.Headers),
+                                               "echo-bish=Bosh\n" +
+                                               "echo-foo=Bar");
+                    var result = System.Text.Encoding.Default.GetString(getStatus.Result);
+                    var expected =
+                        "{\"data\": \"Hello from a test server\", " +
+                        "\"headers\": {\"Echo-Bish\": \"Bosh\", \"Echo-Foo\": \"Bar\"}, " +
+                        "\"path\": \"/get?foo1=bar1&foo2=bar2\", " +
+                        "\"query\": {\"foo1\": [\"bar1\"], \"foo2\": [\"bar2\"]}}";
+                    getSucceeded &= CheckEqual(result, expected);
+                    UnityEngine.Debug.Log(String.Format("Get complete succeeded={0}\n{1}",
+                                                        getSucceeded, result));
+                }
+                return complete;
+            }, synchronous: true);
+
+        UnityEngine.Debug.Log("Running get with no query test...");
+        var getStatusNoQuery = webRequest.Get("http://localhost:8000/get_with_no_query",
+                                              new Dictionary<string, string> {
+                                                  { "Echo-Foo", "Bar" },
+                                                  { "Echo-Bish", "Bosh" }
+                                              });
+        RunOnMainThread.PollOnUpdateUntilComplete(() => {
+                var complete = getStatusNoQuery.Complete;
+                if (complete) {
+                    getNoQuerySucceeded = CheckEqual(getStatusNoQuery.Status, HttpStatusCode.OK);
+                    getNoQuerySucceeded &= CheckEqual(
+                        DictionaryToString("echo-", true, getStatusNoQuery.Headers),
+                        "echo-bish=Bosh\n" +
+                        "echo-foo=Bar");
+                    var result = System.Text.Encoding.Default.GetString(getStatusNoQuery.Result);
+                    var expected =
+                        "{\"data\": \"Hello from a test server\", " +
+                        "\"headers\": {\"Echo-Bish\": \"Bosh\", \"Echo-Foo\": \"Bar\"}, " +
+                        "\"path\": \"/get_with_no_query\", " +
+                        "\"query\": {}}";
+                    getNoQuerySucceeded &= CheckEqual(result, expected);
+                    UnityEngine.Debug.Log(String.Format("Get with no query succeeded={0}\n{1}",
+                                                        getNoQuerySucceeded, result));
+                }
+                return complete;
+            }, synchronous: true);
+
+        UnityEngine.Debug.Log("Running get with no headers test...");
+        var getStatusNoHeaders = webRequest.Get("http://localhost:8000/get?foo1=bar1&foo2=bar2",
+                                                null);
+        RunOnMainThread.PollOnUpdateUntilComplete(() => {
+                var complete = getStatusNoHeaders.Complete;
+                if (complete) {
+                    getNoHeadersSucceeded = CheckEqual(getStatusNoHeaders.Status,
+                                                       HttpStatusCode.OK);
+                    getNoHeadersSucceeded &= CheckEqual(DictionaryToString("echo-", true,
+                                                                  getStatusNoHeaders.Headers), "");
+                    var result = System.Text.Encoding.Default.GetString(getStatusNoHeaders.Result);
+                    var expected =
+                        "{\"data\": \"Hello from a test server\", " +
+                        "\"headers\": {}, " +
+                        "\"path\": \"/get?foo1=bar1&foo2=bar2\", " +
+                        "\"query\": {\"foo1\": [\"bar1\"], \"foo2\": [\"bar2\"]}}";
+                    getNoHeadersSucceeded &= CheckEqual(result, expected);
+                    UnityEngine.Debug.Log(String.Format("Get with no headers succeeded={0}\n{1}",
+                                                        getNoHeadersSucceeded, result));
+                }
+                return complete;
+            }, synchronous: true);
+
+        UnityEngine.Debug.Log("Running post test...");
+        var postStatus = webRequest.Post(
+            "http://localhost:8000/post?queryfoo1=querybar1&queryfoo2=querybar2",
+            headers: new Dictionary<string, string> {
+                { "Echo-Foo", "Bar" },
+                { "Echo-Bish", "Bosh" }
+            },
+            formFields: new[] {
+                new KeyValuePair<string, string>("foo1", "bar1"),
+                new KeyValuePair<string, string>("foo2", "bar2")
+            });
+        RunOnMainThread.PollOnUpdateUntilComplete(() => {
+                var complete = postStatus.Complete;
+                if (complete) {
+                    postSucceeded = CheckEqual(postStatus.Status, HttpStatusCode.OK);
+                    postSucceeded &= CheckEqual(
+                        DictionaryToString("echo-", true, postStatus.Headers),
+                        "echo-bish=Bosh\n" +
+                        "echo-foo=Bar");
+                    var result = System.Text.Encoding.Default.GetString(postStatus.Result);
+                    var expected =
+                        "{\"data\": \"Hello from a test server\", " +
+                        "\"form\": {\"foo1\": [\"bar1\"], \"foo2\": [\"bar2\"]}, " +
+                        "\"headers\": {\"Echo-Bish\": \"Bosh\", \"Echo-Foo\": \"Bar\"}, " +
+                        "\"path\": \"/post?queryfoo1=querybar1&queryfoo2=querybar2\", " +
+                        "\"query\": {\"queryfoo1\": [\"querybar1\"], " +
+                        "\"queryfoo2\": [\"querybar2\"]}}";
+                    postSucceeded &= CheckEqual(result, expected);
+                    UnityEngine.Debug.Log(String.Format("Post complete succeeded={0}\n{1}",
+                                                        postSucceeded, result));
+                }
+                return complete;
+            }, synchronous: true);
+
+        UnityEngine.Debug.Log("Running post test with no form fields...");
+        var postNoFormFieldsStatus = webRequest.Post(
+            "http://localhost:8000/post",
+            queryParams: new[] {
+                new KeyValuePair<string, string>("foo1", "bar1"),
+                new KeyValuePair<string, string>("foo2", "bar2"),
+                new KeyValuePair<string, string>("foo with/special+char",
+                                                 "bar with/special+char")
+            },
+            headers: new Dictionary<string, string> {
+                { "Echo-Foo", "Bar" },
+                { "Echo-Bish", "Bosh" }
+            },
+            formFields: null);
+        RunOnMainThread.PollOnUpdateUntilComplete(() => {
+                var complete = postNoFormFieldsStatus.Complete;
+                if (complete) {
+                    postNoFormFieldsSucceeded = CheckEqual(postNoFormFieldsStatus.Status,
+                                                           HttpStatusCode.OK);
+                    postNoFormFieldsSucceeded &= CheckEqual(
+                        DictionaryToString("echo-", true, postNoFormFieldsStatus.Headers),
+                        "echo-bish=Bosh\n" +
+                        "echo-foo=Bar");
+                    var result = System.Text.Encoding.Default.GetString(
+                        postNoFormFieldsStatus.Result);
+                    var expected =
+                        "{\"data\": \"Hello from a test server\", " +
+                        "\"headers\": {\"Echo-Bish\": \"Bosh\", \"Echo-Foo\": \"Bar\"}, " +
+                        "\"path\": \"/post?foo1=bar1&foo2=bar2&foo%20with%2Fspecial%2Bchar=bar%20with%2Fspecial%2Bchar\", " +
+                        "\"query\": {\"foo with/special+char\": [\"bar with/special+char\"], " +
+                        "\"foo1\": [\"bar1\"], \"foo2\": [\"bar2\"]}}";
+                    postNoFormFieldsSucceeded &= CheckEqual(result, expected);
+                    UnityEngine.Debug.Log(String.Format(
+                        "Post with no firm fields succeeded={0}\n{1}",
+                        postNoFormFieldsSucceeded, result));
+                }
+                return complete;
+            }, synchronous: true);
+
+        UnityEngine.Debug.Log("Running post test with no headers...");
+        var postNoHeadersStatus = webRequest.Post(
+            "http://localhost:8000/post/with/no/headers",
+            headers: null,
+            formFields: new[] {
+                new KeyValuePair<string, string>("foo1", "bar1"),
+                new KeyValuePair<string, string>("foo2", "bar2")
+            });
+        RunOnMainThread.PollOnUpdateUntilComplete(() => {
+                var complete = postNoHeadersStatus.Complete;
+                if (complete) {
+                    postNoHeadersSucceeded = CheckEqual(postNoHeadersStatus.Status,
+                                                        HttpStatusCode.OK);
+                    postNoHeadersSucceeded &= CheckEqual(DictionaryToString(
+                        "echo-", true, postNoHeadersStatus.Headers), "");
+                    var result = System.Text.Encoding.Default.GetString(postNoHeadersStatus.Result);
+                    var expected =
+                        "{\"data\": \"Hello from a test server\", " +
+                        "\"form\": {\"foo1\": [\"bar1\"], \"foo2\": [\"bar2\"]}, " +
+                        "\"headers\": {}, " +
+                        "\"path\": \"/post/with/no/headers\", \"query\": {}}";
+                    postNoHeadersSucceeded &= CheckEqual(result, expected);
+                    UnityEngine.Debug.Log(String.Format("Post with no headers succeeded={0}\n{1}",
+                                                        postNoHeadersSucceeded, result));
+                }
+                return complete;
+            }, synchronous: true);
+
+        // Exit when the tests are complete.
+        if (!(getSucceeded && getNoQuerySucceeded && getNoHeadersSucceeded && postSucceeded
+              && postNoHeadersSucceeded)) {
+            UnityEngine.Debug.Log("Test failed");
+            UnityEditor.EditorApplication.Exit(1);
+        }
+        UnityEngine.Debug.Log("Test passed");
+        UnityEditor.EditorApplication.Exit(0);
+    }
+}

@@ -1,33 +1,79 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T instance;
+    private static T _instance;
+    private static readonly object _lock = new object();
+    private static bool _isInitialized = false;
+    private static bool _applicationIsQuitting = false;
 
     public static T Instance
     {
         get
         {
-            if(instance == null)
+            if (_applicationIsQuitting)
             {
-                instance=(T)FindObjectOfType(typeof(T));
-                if (instance == null)
+                return null;
+            }
+
+            if (_instance == null)
+            {
+                if (!_isInitialized)
                 {
-                    GameObject obj=new GameObject(typeof(T).Name,typeof(T));
-                    instance = obj.AddComponent<T>();
+                    CreateInstance();
                 }
             }
-            return instance;
+            return _instance;
         }
     }
-    private void Awake()
+
+    private static void CreateInstance()
     {
-        if(transform.parent != null && transform.root != null)
-        {   //Managers 오브젝트안에 각각 싱글톤메니저들을 넣는 경우 예외처리를 위한 구문
-            DontDestroyOnLoad(this.transform.root.gameObject);
-        }
-        else
+        lock (_lock)
         {
+            if (_instance == null && !_isInitialized && !_applicationIsQuitting)
+            {
+                _instance = FindObjectOfType<T>();
+
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject();
+                    _instance = singletonObject.AddComponent<T>();
+                    singletonObject.name = typeof(T).ToString() + " (Singleton)";
+                    DontDestroyOnLoad(singletonObject);
+                }
+
+                _isInitialized = true;
+            }
+        }
+    }
+
+    protected virtual void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this as T;
             DontDestroyOnLoad(this.gameObject);
         }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            _instance = null;
+            _isInitialized = false;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        _applicationIsQuitting = true;
     }
 }
