@@ -3,23 +3,36 @@ import os
 import json
 from flask_restx import Api, Resource, fields
 
+# --- description strings ----------------------------------------------------------------------------------------------
+# 문서 작성에 사용될 문자열 입니다. 여러줄 텍스트가 필요할시 사용하기 위해서 추가하였습니다.
+STR_api_description = """
+전북대학교 오픈소스소프트웨어 팀 프로젝트 - SpaceCat에 사용되는 API 문서입니다.
+"""
+STR_ReadData_description = "유저 데이터를 불러오는 기능입니다"
+STR_SendData_description = "유저 데이터를 서버에 작성하는 기능입니다"
+
+
+# --- init -------------------------------------------------------------------------------------------------------------
 # flask server with swagger feature
 # DEPENDENCE : flask , flask_restx
 app = flask.Flask(__name__)
-api = Api(app, version='1.0', title='Sample API', description='A sample API', )
+api = Api(app, version='1.0', title='SpaceCat API', description=STR_api_description, )
+api.namespaces.clear()   # delete 'default' namespace, adding other namespace after this
 
 
-# --- ReadData class ---------------------------------------------------------------------------------------------------
-rend_data_ns = api.namespace('read_data', description='Rend data operations')
-data_model = api.model('Data', {
-    'userId': fields.String(required=True, description='The ID of the user', example='12345'),
+# namespace read_data --------------------------------------------------------------------------------------------------
+read_data_ns = api.namespace('read_data', description=STR_ReadData_description)
+read_data_model = api.model('user_data(read)', {
+    'user_id': fields.String(required=True, description='사용자 ID 입니다.', example='abcdefgTNtaY7mOY0Rm123456789'),
 })
-@rend_data_ns.route('/<string:user_id>')
-@rend_data_ns.param('user_id', 'The user identifier')
+
+
+@read_data_ns.route('/<string:user_id>')
+@read_data_ns.param('user_id', '사용자 ID를 입력해 주세요.')
 class ReadData(Resource):
     # -- id로 유저 정보 불러오기
-    @rend_data_ns.response(200, 'Success')
-    @rend_data_ns.response(404, 'Not Found')
+    @read_data_ns.response(200, 'Success', model=read_data_model)
+    @read_data_ns.response(404, 'Not Found')
     def get(self, user_id):
         json_file_path = f'{user_id}.json'
 
@@ -32,22 +45,25 @@ class ReadData(Resource):
         return flask.jsonify({"status": "success", "data": data})
 
 
-# --- SendData class ---------------------------------------------------------------------------------------------------
-send_data_ns = api.namespace('send_data', description='Send data operations')
+api.add_resource(ReadData, '/send_data/<string:user_id>')
+
+# namespace send_data --------------------------------------------------------------------------------------------------
+send_data_ns = api.namespace('send_data', description=STR_SendData_description)
+
+# user_data_model에서 사용하는 모델의 하위모델
 location_model = api.model('Location', {
-    'latitude': fields.Float(required=True, description='The latitude of the user location', example=37.7749),
-    'longitude': fields.Float(required=True, description='The longitude of the user location', example=-122.4194)
+    'latitude': fields.Float(required=True, description='사용자 위치의 위도입니다.', example=37.7749),
+    'longitude': fields.Float(required=True, description='사용자 위치의 경도입니다.', example=-122.4194)
+})
+user_data_model = api.model('user_data(send)', {
+    'userId': fields.String(required=True, description='사용자 ID입니다.', example='abcdefgTNtaY7mOY0Rm123456789'),
+    'userName': fields.String(required=False, description='사용자의 이름입니다.', example='홍길동'),
+    'userEmail': fields.String(required=False, description='사용자의 email 주소입니다.', example='hgd0123@korea.com'),
+    'location': fields.Nested(location_model, required=False, description='사용자의 위치입니다.'),
+    'date': fields.String(required=False, description='날짜입니다.', example='1901-01-23'),
+    'forecast': fields.String(required=False, description='일기예보입니다.', example='맑음')
 })
 
-user_data_model = api.model('user_data', {
-    'userId': fields.String(required=True, description='The ID of the user', example='12345'),
-    'userName': fields.String(required=False, description='The name of the user', example='John Doe'),
-    'userEmail': fields.String(required=False, description='The email of the user', example='john.doe@example.com'),
-    'location': fields.Nested(location_model, required=False, description='The location of the user'),
-    'date': fields.String(required=False, description='The date of the data', example='2023-06-18'),
-    'forecast': fields.String(required=False, description='The weather forecast', example='Sunny')
-})
-api.add_resource(ReadData, '/send_data/<string:user_id>')
 
 @send_data_ns.route('/')
 class SendData(Resource):
@@ -83,6 +99,8 @@ class SendData(Resource):
             json.dump(data, json_file, indent=4)
 
         return flask.jsonify({"status": "success", "received_data": data})
+
+
 api.add_resource(SendData, '/send_data')
 
 # --- main -------------------------------------------------------------------------------------------------------------
