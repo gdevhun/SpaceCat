@@ -110,7 +110,7 @@ public class FlaskCommunication : Singleton<FlaskCommunication>
         }
         else
         {
-            Debug.LogError($"Error sending data: {request.error}");
+            Debug.Log($"Error sending data: {request.error}");
         }
     }
 
