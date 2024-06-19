@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace GPS
 {
-    public class Location : MonoBehaviour
+    public class LocationWEB : MonoBehaviour
     {
         public static double first_Lat; //최초 위도
         public static double first_Long; //최초 경도
-        public static double current_Lat = 35.8510; //현재 위도 고정
-        public static double current_Long = 127.1263; //현재 경도 고정
+        public static double current_Lat = 35.8510; 
+        public static double current_Long = 127.1263; 
         public static Dictionary<string, double> result;
 
         private static WaitForSeconds second = new WaitForSeconds(1);

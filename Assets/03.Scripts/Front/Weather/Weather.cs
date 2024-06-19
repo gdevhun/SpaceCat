@@ -76,7 +76,7 @@ public class Weather : MonoBehaviour
         DateTime networkTime = ntpClient.GetNetworkTime();
         yield return new WaitForSeconds(3);
         Dictionary<string, double> Location = new Dictionary<string, double>();
-        Location = GPS.Location.GetXY();        
+        Location = GPS.LocationWEB.GetXY();        
 
         string date = networkTime.ToString("yyyyMMdd");
         string time = networkTime.ToString("HHmm");
