@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 318669803}
   - component: {fileID: 318669802}
   - component: {fileID: 318669801}
+  - component: {fileID: 318669804}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -578,9 +579,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 318669799}
         m_TargetAssemblyTypeName: SceneCtrlMananger, Assembly-CSharp
-        m_MethodName: MoveScene
+        m_MethodName: 
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -640,6 +641,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318669799}
   m_CullTransparentMesh: 1
+--- !u!114 &318669804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318669799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c2c8527049a954bbb71951f1cc1f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _backButton: {fileID: 318669801}
 --- !u!1 &417901125
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,7 +2252,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1377015418}
-  - component: {fileID: 1377015419}
   m_Layer: 0
   m_Name: Exit
   m_TagString: Untagged
@@ -2261,19 +2274,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1377015419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377015416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c2c8527049a954bbb71951f1cc1f83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _exitButton: {fileID: 318669801}
 --- !u!1 &1388732045
 GameObject:
   m_ObjectHideFlags: 0

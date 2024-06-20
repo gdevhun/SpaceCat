@@ -63,7 +63,6 @@ public class ChatGPTManager : MonoBehaviour
             InputContent.Select();
             OnContent.text = newText;
             OnResponse.Invoke(chatResponse.Content);
-            //FirebaseWriteManager.Instance.SaveChatting(newText, chatResponse.Content);
         }
 
     }
