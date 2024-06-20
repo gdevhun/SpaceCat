@@ -20,10 +20,9 @@ public class ScrollView : MonoBehaviour
         FetchOpinions();
     }
 
+
     private void FetchOpinions()
     {
-        string userId = FirebaseReadingManager.Instance.CurrentUserID;
-        string userMbti = FirebaseReadingManager.Instance.CurrentUserMBTI;
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.GetReference("OpinionData");
         reference.GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
@@ -39,6 +38,7 @@ public class ScrollView : MonoBehaviour
                     opinions.Clear();
                     foreach (DataSnapshot mbtiSnapshot in snapshot.Children)
                     {
+                        string userMbti = mbtiSnapshot.Key;
                         foreach (DataSnapshot userSnapshot in mbtiSnapshot.Children)
                         {
                             foreach (DataSnapshot opinionSnapshot in userSnapshot.Child("content").Children)
