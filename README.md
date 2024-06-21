@@ -142,7 +142,30 @@
 
 
 </details>
+<details>
+  <summary><b>Swagger 해설</b></summary>
+ 
+  설명 : API개발에 도움이 되도록 API통신을 쉽게 테스트해볼 수 있는 여건을 제공해준다.
+https://swagger.io/
+  
+  테스트 링크 : (swagger UI editor 기본예제인 Petstore API)
+  https://petstore.swagger.io/?_gl=1*1jcnyq5*_gcl_au*MzAyNjY4OTguMTcxODAyNzI4MA..&_ga=2.38522087.518992663.1718952823-1509199943.1718027280
+  
+  flask_restx 레퍼런스 : https://flask-restx.readthedocs.io/en/latest/
+  
+  적용 방법 : (flask 서버 + python 이용) (python으로 만들어진 코드를 Swagger 정의로 자동변환함)
+      1.	기존에 서버로 사용되었던 파일에 flask_restx 를 설치해 불러옵니다.
+      2.	Swagger API로 사용되는 변수를 추가합니다
+      api = Api(app, version='1.0', title='Sample API', description='A sample API', )
+      3.	api.amespace를 통해 기능을 대분류로 나눕니다.
+      4.	api.model를 통해 사용할 데이터 구조를 정의합니다. (자료형, 필수입력여부 등)
+      5.	각 기능을 구현할 class를 구현합니다. 클래스는 flask_restx의 Resource 클래스로부터 상속받습니다.
+      6.	클래스 상단에 @<구현한 namespace 이름>.route()로 실제 api 접속 주소를, .param()으로 이 기능에서 사용될 입력을 추가합니다.
+      7.	각 클래스에서 get, post, put 등의 이름을 가진 메서드를 구현합니다. 리턴값이 곧 응답 결과물 입니다. (swagger는 Resoure에 오버라이딩 하면 알아서 인식해 표시합니다)
+      8.	각 메서드 상단에는 @<구현한 namespace 이름>.expect()를 통해 입력 데이터 구조를 정의하고, .response(code, text)를 통해 응답을 설정해 줄 수 있습니다.
 
+
+</details>
 
 <br/>
 .... 
