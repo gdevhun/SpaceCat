@@ -8,10 +8,10 @@
 | 이름 | 개인 역할 | 담당 역할 및 기능 |
 | ------ | ---------- | ------ |
 | 원동훈 | PM, Developer | PM, 기획, 프론트엔드, MBTI Test 구현 |
-| 김유림 | Developer | UI/UX, 프론트엔드, MBTI Test 구현 |
-| 신광철 | Developer | 백엔드, 로그인 기능 구현|
+| 김유림 | Developer | UI/UX, 프론트엔드, MBTI Test 구현, OpenAI 파인튜닝 |
+| 신광철 | Developer | 백엔드, Firebase 로그인 기능 구현, 서버 통신|
 | 김솔래 | Developer | 백엔드, REST API 로그인 구현|
-| 주효돈 | Developer | 백엔드, MongoDB 통신 API 구현 |
+| 주효돈 | Developer | 백엔드, Firebase API, 날씨&지도 API, 서버 통신 |
 
 <br/>
 
@@ -21,15 +21,72 @@
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
 <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
 <img src="https://img.shields.io/badge/firebase-1D9FD7?style=for-the-badge&logo=firebase&logoColor=FFCA28"/> 
-<img src="https://img.shields.io/badge/mongodb-47A248?style=for-the-badge&logo=mongodb&logoColor=green"/>
+<img src="https://img.shields.io/badge/OpenAI-4285F4?style=for-the-badge&logo=openai&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white"/>
+
 (Version : Unity 2022.3.22f1 - LTS)
 <br/>
 
 ## 협업 가이드 및 규칙 Tool - 프로젝트 스케줄 📅
-#노션 Notion
+#### 노션 Notion
 - https://www.notion.so/ab5763575e0940c09e21e68cd2c7b464
 
 - https://unmarred-deer-17b.notion.site/ab5763575e0940c09e21e68cd2c7b464?pvs=4
+
+## 설치 및 빌드
+<details>
+  <summary><b>1.유니티 설치</b></summary>
+  <div markdown="1">
+    <ul>
+      <li> 저장 기능</li>
+      <li> 저장 기능</li>
+      <img src="./docs/주요_기능/포토스팟_콜렉션/1.gif" width=70%>
+      <img src="./docs/주요_기능/포토스팟_콜렉션/2.gif" width=70%>
+      <li>콜렉션에 있는 포토스팟 리스트를 확인하고 해당 포토스팟을 클릭하면 해당 좌표로 이동</li>
+      <img src="./docs/주요_기능/포토스팟_콜렉션/3.gif" width=70%>
+      <li>마음에 드는 콜렉션에 나의 반응을 표현할 수 있는 좋아요 기능</li>
+      <img src="./docs/주요_기능/포토스팟_콜렉션/4.gif" width=70%>
+      <li>포토스팟에 등록된 사진을 모아보고 비슷한 사진을 추천하는 기능</li>
+      <img src="./docs/주요_기능/포토스팟_콜렉션/5.gif" width=70%>
+    </ul>
+  </div>
+</details>
+
+
+## 참고 자료
+<details>
+<summary><h2>MBTI 성격 유형 예측 프로젝트</h2></summary>
+
+이 프로젝트는 머신러닝과 파인튜닝된 모델을 사용하여 MBTI 성격 유형을 예측하는 것에 중점을 두고 있습니다.
+
+
+### MBTI 특성 정리
+
+[MBTI Personality Types 500 Dataset](https://www.kaggle.com/datasets/zeyadkhalid/mbti-personality-types-500-dataset/data)
+![image](https://github.com/gdevhun/SpaceCat/assets/83668266/3350c6b3-3617-4daa-94c1-164556c10629)
+
+
+### OpenAI 파인튜닝
+1. OpenAI에서 `gpt-3.5-turbo`로 데이터셋 제작.
+   - [Create_MBTI_Data_Openai_api.ipynb](https://github.com/YBIGTA/24th-project-mbti-prediction/blob/main/task2/Create_MBTI_Data_Openai_api.ipynb)
+     ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/483818ae-a2bc-459c-bcd0-e4215c037611)
+   - 데이터셋 변환 중 발생한 오류: [ChatGPT 솔루션](https://chatgpt.com/share/fee22987-b773-4913-8e80-2e319dfb1514)
+
+2. OpenAI ‘gpt-3.5-turbo-1106’ 모델을 베이스로 파인튜닝
+   - [OpenAI Fine-tuning](https://platform.openai.com/docs/guides/fine-tuning)
+     ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/296496e4-2d40-4e48-a64c-9a31f5d4bc89)
+
+
+### Unity에 파인튜닝된 모델 적용
+
+[How To Make ChatGPT NPC In Unity - Tutorial](https://youtu.be/lYckk570Tqw?si=L7pjwiSJ9_HQQla2)
+
+
+## 실행 방법
+
+1. **환경 설정**: 필요한 종속성을 설치합니다.
+   ```bash
+   pip install -r requirements.txt
 
 <br/>
 .... 
