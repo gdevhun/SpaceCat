@@ -55,6 +55,12 @@
   <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/6d507e63-ca0e-4bfb-b1e8-c6772d21af4a" alt="image 11">
 </details>
 
+<details>
+  <summary><b>키 값 입력</b></summary>
+  Assets/Firebase/google-services.json에 19번 줄 부분에 'current_key'에 notion에 있는 google서비스 키 값 입력
+  Assets/03.Scripts/AI/OpenAI-Fine-Tuning/auth.json 에 있는 'api-key'와 'organization'에 notion에 있는 키 값을 각각 입력 해줄 것 
+
+</details>
 
 <details>
   <summary><b>유니티 실행</b></summary>
