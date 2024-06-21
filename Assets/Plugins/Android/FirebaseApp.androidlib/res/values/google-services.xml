@@ -4,7 +4,7 @@
   <string name="gcm_defaultSenderId" translatable="false">794886672080</string>
   <string name="google_storage_bucket" translatable="false">ossteamproject-a4ea0.appspot.com</string>
   <string name="project_id" translatable="false">ossteamproject-a4ea0</string>
-  <string name="google_api_key" translatable="false">AIzaSyB3Y9h9M_fkKXgSAIAhTtJSgGws3twqB0o</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB3Y9h9M_fkKXgSAIAhTtJSgGws3twqB0o</string>
-  <string name="google_app_id" translatable="false">1:794886672080:android:e16fe048004e3517de98d5</string>
+  <string name="google_api_key" translatable="false">google_api_key</string>
+  <string name="google_crash_reporting_api_key" translatable="false">google_crash_reporting_api_key</string>
+  <string name="google_app_id" translatable="false">google_app_id</string>
 </resources>
