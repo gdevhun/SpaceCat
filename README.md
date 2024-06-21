@@ -60,6 +60,21 @@
   <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/b0bb768f-7fff-4484-b5b6-375154905fa4" alt="image 9">
   <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/760468ac-512e-4c69-9938-9f5913428ad3" alt="image 10">
   <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/6d507e63-ca0e-4bfb-b1e8-c6772d21af4a" alt="image 11">
+
+  
+  - 상단에 Windows-Package Manger 클릭
+  ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/578c8762-75a9-4137-82e0-58f52a2ab4f3)
+  
+  - 좌측상단에 + 버튼을 클릭 후 Add package from git URL 클릭
+  아래 URL 입력 후 Add
+  https://github.com/srcnalt/OpenAI-Unity.git
+  ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/48924abc-2f29-4962-baf8-5bf98d62b863)
+
+  - OpenAI Unity 찾은 후 Install 버튼 클릭
+    
+  ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/ff7cf3a5-b2ad-4484-b76e-24b256be96ed)
+
+
 </details>
 
 
