@@ -38,30 +38,28 @@
 
 ## 설치 및 빌드
 <details>
-  <summary><b> 유니티 설치</b></summary>
-      [유니티 홈페이지 다운로드](https://unity.com/kr/download)
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/d11b0bae-848d-4ac7-b4e8-ff56573d04f8)
+<summary><b>OpenAI Fine-Tuning</b></summary>
 
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/dd58f8f4-4a8c-459e-b165-44df613cdb3b)
 
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/92f2fffd-7624-4202-8b63-e581ac34315a)
 
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/8b72ac3d-ef12-4798-9a8e-e1e4671eac32)
+### 유니티 설치
+<details>
+  <summary><b>유니티 설치</b></summary>
+  https://unity.com/kr/download![image](https://github.com/gdevhun/SpaceCat/assets/83668266/75938ffb-242a-4f80-851f-05ed9053d0f4)
 
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/49909002-eee5-4b45-a4bc-094de4c1b1e0)
-
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/827b8afe-be15-425f-bef8-145652a24edf)
-
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/89b2ab44-ccb3-4150-af08-ae5027463fba)
-
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/e98cb372-9c3a-42d4-8ea2-cea533e83327)
-
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/b0bb768f-7fff-4484-b5b6-375154905fa4)
-
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/760468ac-512e-4c69-9938-9f5913428ad3)
-
-      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/6d507e63-ca0e-4bfb-b1e8-c6772d21af4a)
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/d11b0bae-848d-4ac7-b4e8-ff56573d04f8" alt="image 1">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/dd58f8f4-4a8c-459e-b165-44df613cdb3b" alt="image 2">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/92f2fffd-7624-4202-8b63-e581ac34315a" alt="image 3">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/8b72ac3d-ef12-4798-9a8e-e1e4671eac32" alt="image 4">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/49909002-eee5-4b45-a4bc-094de4c1b1e0" alt="image 5">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/827b8afe-be15-425f-bef8-145652a24edf" alt="image 6">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/89b2ab44-ccb3-4150-af08-ae5027463fba" alt="image 7">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/e98cb372-9c3a-42d4-8ea2-cea533e83327" alt="image 8">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/b0bb768f-7fff-4484-b5b6-375154905fa4" alt="image 9">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/760468ac-512e-4c69-9938-9f5913428ad3" alt="image 10">
+  <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/6d507e63-ca0e-4bfb-b1e8-c6772d21af4a" alt="image 11">
 </details>
+
 
 <details>
   <summary><b> 유니티 설치</b></summary>
@@ -134,7 +132,7 @@
 ### Unity에 파인튜닝된 모델 적용
 
 [How To Make ChatGPT NPC In Unity - Tutorial](https://youtu.be/lYckk570Tqw?si=L7pjwiSJ9_HQQla2)
-
+</details>
 
 <br/>
 .... 
