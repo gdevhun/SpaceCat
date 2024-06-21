@@ -37,12 +37,7 @@
 
 
 ## 설치 및 빌드
-<details>
-<summary><b>OpenAI Fine-Tuning</b></summary>
 
-
-
-### 유니티 설치
 <details>
   <summary><b>유니티 설치</b></summary>
   https://unity.com/kr/download![image](https://github.com/gdevhun/SpaceCat/assets/83668266/75938ffb-242a-4f80-851f-05ed9053d0f4)
@@ -62,45 +57,13 @@
 
 
 <details>
-  <summary><b> 유니티 설치</b></summary>
-  <div markdown="1">
-    <ul>
-      1. 유니티 홈페이지 다운로드
-     
-      2. 설치 동의
-      
-      3. 로그인
-      
-      4. 버전은 2022.3.22f1 다운로드합니다.
-      
-      5. 라이선스 획득
-      
-      6. 라이선스 획득 후 화면
-      
-      7. 원하는 모듈 추후 설치 가능(continue)
-      
-      8.
-      
-      9. 깃 허브 브랜치에서 프로젝트 파일을 다운로드합니다.
+  <summary><b>유니티 실행</b></summary>
+  https://unity.com/kr/download![image](https://github.com/gdevhun/SpaceCat/assets/83668266/75938ffb-242a-4f80-851f-05ed9053d0f4)
 
-         Add project from disk를 통해서 다운로드한 파일을 적용합니다.
-         
-      10. 클릭하면 프로젝트 파일이 열립니다.
+  ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/c77408be-d1ee-44c2-9971-a89c85c36eca)
+  ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/b70160b6-1fff-4c9d-99cf-5129d0dd0354)
+  ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/7634a7a5-e76c-43a2-be80-7bdbf95059f5)
 
-
-
-      
-      <li> https://unity.com/kr/download</li>
-      <img src="./docs/주요_기능/포토스팟_콜렉션/1.gif" width=70%>
-      <img src="./docs/주요_기능/포토스팟_콜렉션/2.gif" width=70%>
-      <li>콜렉션에 있는 포토스팟 리스트를 확인하고 해당 포토스팟을 클릭하면 해당 좌표로 이동</li>
-      <img src="./docs/주요_기능/포토스팟_콜렉션/3.gif" width=70%>
-      <li>마음에 드는 콜렉션에 나의 반응을 표현할 수 있는 좋아요 기능</li>
-      <img src="./docs/주요_기능/포토스팟_콜렉션/4.gif" width=70%>
-      <li>포토스팟에 등록된 사진을 모아보고 비슷한 사진을 추천하는 기능</li>
-      <img src="./docs/주요_기능/포토스팟_콜렉션/5.gif" width=70%>
-    </ul>
-  </div>
 </details>
 
 
@@ -133,6 +96,46 @@
 
 [How To Make ChatGPT NPC In Unity - Tutorial](https://youtu.be/lYckk570Tqw?si=L7pjwiSJ9_HQQla2)
 </details>
+
+<details>
+  <summary><b>날씨 및 지도 API</b></summary>
+ 
+  기상청 날씨예보 받아오는 샘플코드
+  https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15084084
+ 
+  사용자 위치정보 가져오는 코드
+  https://velog.io/@jm450_/Unity-AR-GPS%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%9C%84%EC%B9%98-%EC%9D%B4%EB%8F%99
+  
+  기상청 좌표 xy로 변환
+  https://gist.github.com/fronteer-kr/14d7f779d52a21ac2f16
+
+</details>
+<details>
+  <summary><b>Firebase API</b></summary>
+ 
+  firebase sdk 사용법
+  https://firebase.google.com/docs/web/setup?hl=ko&authuser=0&_gl=1*vrvf6k*_ga*MTU4OTg2ODE2LjE3MTg4OTQ3Mjk.*_ga_CW55HF8NVT*MTcxODk0NzI0NS41LjEuMTcxODk0NzM3Ny40Ni4wLjA.
+ firebase R/W 활용
+ https://chatgpt.com/c/f8a2acc9-5e1f-4004-952f-a01bcc2880af
+
+
+</details>
+<details>
+  <summary><b>서버</b></summary>
+ 
+  [app.py]
+  서버에 데이터 주고 파일로 저장 및 데이터 유저에게 전달 (.send_data), 
+  서버에 저장된 파일 데이터 유저에게 전달 (.read_data)
+  데이터 정의 및 직렬화, 서버와의 통신
+  
+  참고 자료
+  // https://github.com/AakashGD890/FirebaseStarterProject
+  // https://firebase.google.com/docs/auth/unity/start?hl=ko)&_gl=1*2pq1it*_up*MQ..*_ga*NDUxNzQ2NTQ0LjE3MTQwMDYzODg.*_ga_CW55HF8NVT*MTcxNDAwNjM4OC4xLjAuMTcxNDAwNjM4OC4wLjAuMA.. (firebase 공식 docs)
+
+
+
+</details>
+
 
 <br/>
 .... 
