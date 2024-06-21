@@ -21,12 +21,13 @@
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
 <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
 <img src="https://img.shields.io/badge/firebase-1D9FD7?style=for-the-badge&logo=firebase&logoColor=FFCA28"/> 
-<img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=black"/>
+<img src="https://img.shields.io/badge/OpenAI-000000?style=for-the-badge&logo=openai&logoColor=white"/>
 <img src="https://img.shields.io/badge/amazonwebservices-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white"/>
 <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
 
 (Version : Unity 2022.3.22f1 - LTS)
 <br/>
+
 
 ## 협업 가이드 및 규칙 Tool - 프로젝트 스케줄 📅
 #### 노션 Notion
@@ -34,13 +35,71 @@
 
 - https://unmarred-deer-17b.notion.site/ab5763575e0940c09e21e68cd2c7b464?pvs=4
 
+
 ## 설치 및 빌드
 <details>
-  <summary><b>1.유니티 설치</b></summary>
+  <summary><b> 유니티 설치</b></summary>
   <div markdown="1">
     <ul>
-      <li> 저장 기능</li>
-      <li> 저장 기능</li>
+      [유니티 홈페이지 다운로드](https://unity.com/kr/download)
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/d11b0bae-848d-4ac7-b4e8-ff56573d04f8)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/dd58f8f4-4a8c-459e-b165-44df613cdb3b)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/92f2fffd-7624-4202-8b63-e581ac34315a)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/8b72ac3d-ef12-4798-9a8e-e1e4671eac32)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/49909002-eee5-4b45-a4bc-094de4c1b1e0)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/827b8afe-be15-425f-bef8-145652a24edf)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/89b2ab44-ccb3-4150-af08-ae5027463fba)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/e98cb372-9c3a-42d4-8ea2-cea533e83327)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/b0bb768f-7fff-4484-b5b6-375154905fa4)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/760468ac-512e-4c69-9938-9f5913428ad3)
+
+      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/6d507e63-ca0e-4bfb-b1e8-c6772d21af4a)
+
+
+
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary><b> 유니티 설치</b></summary>
+  <div markdown="1">
+    <ul>
+      1. 유니티 홈페이지 다운로드
+     
+      2. 설치 동의
+      
+      3. 로그인
+      
+      4. 버전은 2022.3.22f1 다운로드합니다.
+      
+      5. 라이선스 획득
+      
+      6. 라이선스 획득 후 화면
+      
+      7. 원하는 모듈 추후 설치 가능(continue)
+      
+      8.
+      
+      9. 깃 허브 브랜치에서 프로젝트 파일을 다운로드합니다.
+
+         Add project from disk를 통해서 다운로드한 파일을 적용합니다.
+         
+      10. 클릭하면 프로젝트 파일이 열립니다.
+
+
+
+      
+      <li> https://unity.com/kr/download</li>
       <img src="./docs/주요_기능/포토스팟_콜렉션/1.gif" width=70%>
       <img src="./docs/주요_기능/포토스팟_콜렉션/2.gif" width=70%>
       <li>콜렉션에 있는 포토스팟 리스트를 확인하고 해당 포토스팟을 클릭하면 해당 좌표로 이동</li>
