@@ -17,8 +17,7 @@ namespace GPS
         private static WaitForSeconds second = new WaitForSeconds(1);
 
         [SerializeField]
-        public TextMeshProUGUI txtMain;
-        public TextMeshProUGUI txtMain2;
+        public TextMeshProUGUI txtMain;        
 
         public void StartGPS()
         {
@@ -64,8 +63,7 @@ namespace GPS
         public void emptyFunction(string det)
         {
             Debug.Log(det);
-            txtMain.text = det;
-            txtMain2.text = det;
+            txtMain.text = det;            
         }
     }
 }
