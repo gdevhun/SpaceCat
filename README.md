@@ -21,8 +21,9 @@
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
 <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
 <img src="https://img.shields.io/badge/firebase-1D9FD7?style=for-the-badge&logo=firebase&logoColor=FFCA28"/> 
-<img src="https://img.shields.io/badge/OpenAI-4285F4?style=for-the-badge&logo=openai&logoColor=white"/>
-<img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white"/>
+<img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=black"/>
+<img src="https://img.shields.io/badge/amazonwebservices-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white"/>
+<img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
 
 (Version : Unity 2022.3.22f1 - LTS)
 <br/>
@@ -55,15 +56,15 @@
 
 ## 참고 자료
 <details>
-<summary><h2>MBTI 성격 유형 예측 프로젝트</h2></summary>
+<summary><b>OpenAI Fine-Tuning</b></summary>
 
-이 프로젝트는 머신러닝과 파인튜닝된 모델을 사용하여 MBTI 성격 유형을 예측하는 것에 중점을 두고 있습니다.
 
 
 ### MBTI 특성 정리
 
 [MBTI Personality Types 500 Dataset](https://www.kaggle.com/datasets/zeyadkhalid/mbti-personality-types-500-dataset/data)
 ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/3350c6b3-3617-4daa-94c1-164556c10629)
+
 
 
 ### OpenAI 파인튜닝
@@ -77,16 +78,11 @@
      ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/296496e4-2d40-4e48-a64c-9a31f5d4bc89)
 
 
+
 ### Unity에 파인튜닝된 모델 적용
 
 [How To Make ChatGPT NPC In Unity - Tutorial](https://youtu.be/lYckk570Tqw?si=L7pjwiSJ9_HQQla2)
 
-
-## 실행 방법
-
-1. **환경 설정**: 필요한 종속성을 설치합니다.
-   ```bash
-   pip install -r requirements.txt
 
 <br/>
 .... 
