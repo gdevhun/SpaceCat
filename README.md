@@ -40,7 +40,6 @@
 <details>
   <summary><b> 유니티 설치</b></summary>
   <div markdown="1">
-    <ul>
       [유니티 홈페이지 다운로드](https://unity.com/kr/download)
       ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/d11b0bae-848d-4ac7-b4e8-ff56573d04f8)
 
@@ -64,9 +63,6 @@
 
       ![image](https://github.com/gdevhun/SpaceCat/assets/83668266/6d507e63-ca0e-4bfb-b1e8-c6772d21af4a)
 
-
-
-    </ul>
   </div>
 </details>
 
