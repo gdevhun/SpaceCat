@@ -47,7 +47,7 @@
 </details>
 <details>
   <summary><b>유니티 설치</b></summary>
-  https://unity.com/kr/download![image](https://github.com/gdevhun/SpaceCat/assets/83668266/75938ffb-242a-4f80-851f-05ed9053d0f4)
+  https://unity.com/kr/download
 
   <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/d11b0bae-848d-4ac7-b4e8-ff56573d04f8" alt="image 1">
   <img src="https://github.com/gdevhun/SpaceCat/assets/83668266/dd58f8f4-4a8c-459e-b165-44df613cdb3b" alt="image 2">
